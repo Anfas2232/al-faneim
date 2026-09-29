@@ -1,3 +1,339 @@
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// import {
+//   faWhatsapp,
+//   faTiktok,
+//   faInstagram,
+//   faFacebookF,
+//   faYoutube,
+//   faLinkedinIn,
+//   faXTwitter,
+// } from "@fortawesome/free-brands-svg-icons";
+
+
+// function Footer() {
+//   const quickLinks = [
+//     ["Home", "#home"],
+//     ["Collections", "#collections"],
+//     ["Offers", "#offers"],
+//     ["Branches", "#branches"],
+//     ["Why Us", "#why-us"],
+//   ];
+
+
+//   const locations = [
+//     "Ajman",
+//     "Sharjah",
+//     "Dubai",
+//     "Abu Dhabi",
+//     "Al Ain",
+//     "Fujairah",
+//   ];
+
+
+//   const socialLinks = [
+//     {
+//       name: "WhatsApp",
+//       icon: faWhatsapp,
+//       url: "https://wa.me/971565953837",
+//     },
+//     {
+//       name: "TikTok",
+//       icon: faTiktok,
+//       url: "https://www.tiktok.com/@alfaneim_official?is_from_webapp=1&sender_device=pc",
+//     },
+//     {
+//       name: "Instagram",
+//       icon: faInstagram,
+//       url: "https://share.google/bzREidPOEs1wyAkvu",
+//     },
+//     {
+//       name: "Facebook",
+//       icon: faFacebookF,
+//       url: "https://share.google/p9mu03kATDsQXUj5g",
+//     },
+//     {
+//       name: "YouTube",
+//       icon: faYoutube,
+//       url: "https://share.google/5RYcavykQynE24ocX",
+//     },
+//     {
+//       name: "LinkedIn",
+//       icon: faLinkedinIn,
+//       url: "https://share.google/W13m74ezVGwIud9SS",
+//     },
+//     {
+//       name: "X",
+//       icon: faXTwitter,
+//       url: "https://share.google/DnDdZsWzUIOoHpuvq",
+//     },
+//   ];
+
+
+//   return (
+//     <footer className="footer">
+
+//       {/* TOP GOLD LINE */}
+//       <div className="footer-gold-line"></div>
+
+
+//       <div className="footer-container">
+
+
+//         {/* ================= BRAND ================= */}
+
+//         <div className="footer-brand">
+
+//           <a
+//             href="#home"
+//             className="footer-logo"
+//           >
+
+//             <span className="footer-logo-main">
+//               AL FAN
+//             </span>
+
+//             <span className="footer-logo-sub">
+//               EMIRATES
+//             </span>
+
+//           </a>
+
+
+//           <p className="footer-description">
+//             Everyday fashion, footwear and essentials
+//             made for the whole family across the UAE.
+//           </p>
+
+
+//           {/* SOCIAL */}
+
+//           <div className="footer-socials">
+
+//             {socialLinks.map((social) => (
+
+//               <a
+//                 key={social.name}
+//                 href={social.url}
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 className={`social-${social.name.toLowerCase()}`}
+//                 aria-label={social.name}
+//                 title={social.name}
+//               >
+
+//                 <FontAwesomeIcon
+//                   icon={social.icon}
+//                 />
+
+//               </a>
+
+//             ))}
+
+//           </div>
+
+//         </div>
+
+
+//         {/* ================= QUICK LINKS ================= */}
+
+//         <div className="footer-column">
+
+//           <span className="footer-column-label">
+//             EXPLORE
+//           </span>
+
+//           <h3>
+//             Quick Links
+//           </h3>
+
+
+//           <div className="footer-links">
+
+//             {quickLinks.map(
+//               ([label, link]) => (
+
+//                 <a
+//                   href={link}
+//                   key={label}
+//                 >
+
+//                   <span>
+//                     {label}
+//                   </span>
+
+//                   <span className="footer-arrow">
+//                     →
+//                   </span>
+
+//                 </a>
+
+//               )
+//             )}
+
+//           </div>
+
+//         </div>
+
+
+//         {/* ================= LOCATIONS ================= */}
+
+//         <div className="footer-column">
+
+//           <span className="footer-column-label">
+//             VISIT US
+//           </span>
+
+//           <h3>
+//             Our Locations
+//           </h3>
+
+
+//           <div className="footer-links">
+
+//             {locations.map(
+//               (location) => (
+
+//                 <a
+//                   href="#branches"
+//                   key={location}
+//                 >
+
+//                   <span className="footer-location">
+
+//                     <span className="location-dot">
+//                       •
+//                     </span>
+
+//                     {location}
+
+//                   </span>
+
+//                 </a>
+
+//               )
+//             )}
+
+//           </div>
+
+//         </div>
+
+
+//         {/* ================= CONTACT ================= */}
+
+//         <div className="footer-column">
+
+//           <span className="footer-column-label">
+//             GET IN TOUCH
+//           </span>
+
+//           <h3>
+//             Contact Us
+//           </h3>
+
+
+//           <div className="footer-contact">
+
+
+//             <a href="tel:+971565953837">
+
+//               <span className="contact-icon">
+//                 ☎
+//               </span>
+
+//               <span>
+//                 +971 56 595 3837
+//               </span>
+
+//             </a>
+
+
+//             <a href="mailto:info@alfanemirates.com">
+
+//               <span className="contact-icon">
+//                 @
+//               </span>
+
+//               <span>
+//                 info@alfanemirates.com
+//               </span>
+
+//             </a>
+
+
+//           </div>
+
+
+//           <a
+//             href="https://wa.me/971565953837"
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="footer-whatsapp"
+//           >
+
+//             <FontAwesomeIcon
+//               icon={faWhatsapp}
+//             />
+
+//             <span>
+//               Chat on WhatsApp
+//             </span>
+
+//             <span className="whatsapp-arrow">
+//               ↗
+//             </span>
+
+//           </a>
+
+//         </div>
+
+//       </div>
+
+
+//       {/* ================= BOTTOM ================= */}
+
+//       <div className="footer-bottom">
+
+//         <div className="footer-bottom-inner">
+
+//           <p>
+//             © 2026 <strong>Al Fan Emirates</strong>.
+//             All rights reserved.
+//           </p>
+
+
+//           <div className="footer-bottom-links">
+
+//             <a href="#home">
+//               Privacy
+//             </a>
+
+//             <span>•</span>
+
+//             <a href="#home">
+//               Terms
+//             </a>
+
+//           </div>
+
+
+//           <p className="footer-made">
+//             Made for families across the UAE
+//             <span>♥</span>
+//           </p>
+
+//         </div>
+
+//       </div>
+
+//     </footer>
+//   );
+// }
+
+
+// export default Footer;
+
+
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,14 +348,26 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
+import {
+  ArrowUpRight,
+  ArrowRight,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+
+import { useNavigate } from "react-router-dom";
+
 
 function Footer() {
+  const navigate = useNavigate();
+
   const quickLinks = [
-    ["Home", "#home"],
-    ["Collections", "#collections"],
-    ["Offers", "#offers"],
-    ["Branches", "#branches"],
-    ["Why Us", "#why-us"],
+    ["Home", "/"],
+    ["Collections", "/#collections"],
+    ["Offers", "/#offers"],
+    ["Branches", "/#branches"],
+    ["Why Us", "/#why-us"],
   ];
 
 
@@ -38,57 +386,121 @@ function Footer() {
       name: "WhatsApp",
       icon: faWhatsapp,
       url: "https://wa.me/971565953837",
+      className: "social-whatsapp",
     },
     {
       name: "TikTok",
       icon: faTiktok,
       url: "https://www.tiktok.com/@alfaneim_official?is_from_webapp=1&sender_device=pc",
+      className: "social-tiktok",
     },
     {
       name: "Instagram",
       icon: faInstagram,
       url: "https://share.google/bzREidPOEs1wyAkvu",
+      className: "social-instagram",
     },
     {
       name: "Facebook",
       icon: faFacebookF,
       url: "https://share.google/p9mu03kATDsQXUj5g",
+      className: "social-facebook",
     },
     {
       name: "YouTube",
       icon: faYoutube,
       url: "https://share.google/5RYcavykQynE24ocX",
+      className: "social-youtube",
     },
     {
       name: "LinkedIn",
       icon: faLinkedinIn,
       url: "https://share.google/W13m74ezVGwIud9SS",
+      className: "social-linkedin",
     },
     {
       name: "X",
       icon: faXTwitter,
       url: "https://share.google/DnDdZsWzUIOoHpuvq",
+      className: "social-x",
     },
   ];
+
+
+  const handleQuickLink = (link) => {
+    if (link === "/") {
+      navigate("/");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      return;
+    }
+
+    if (link.startsWith("/#")) {
+      const sectionId = link.replace("/#", "");
+
+      if (window.location.pathname === "/") {
+        const section =
+          document.getElementById(sectionId);
+
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+
+        return;
+      }
+
+      navigate(link);
+    }
+  };
+
+
+  const handleLocation = () => {
+    if (window.location.pathname === "/") {
+      const section =
+        document.getElementById("branches");
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+
+      return;
+    }
+
+    navigate("/#branches");
+  };
 
 
   return (
     <footer className="footer">
 
-      {/* TOP GOLD LINE */}
+      {/* GOLD TOP LINE */}
+
       <div className="footer-gold-line"></div>
 
 
       <div className="footer-container">
 
-
-        {/* ================= BRAND ================= */}
+        {/* =========================
+            BRAND
+        ========================== */}
 
         <div className="footer-brand">
 
-          <a
-            href="#home"
+          <button
+            type="button"
             className="footer-logo"
+            onClick={() =>
+              handleQuickLink("/")
+            }
+            aria-label="Go to Al Fan Emirates home"
           >
 
             <span className="footer-logo-main">
@@ -99,13 +511,35 @@ function Footer() {
               EMIRATES
             </span>
 
-          </a>
+          </button>
 
 
           <p className="footer-description">
-            Everyday fashion, footwear and essentials
-            made for the whole family across the UAE.
+            Everyday fashion, footwear and
+            essentials made for the whole family
+            across the UAE.
           </p>
+
+
+          <div className="footer-brand-meta">
+
+            <span>
+              QUALITY
+            </span>
+
+            <span>•</span>
+
+            <span>
+              VALUE
+            </span>
+
+            <span>•</span>
+
+            <span>
+              FAMILY
+            </span>
+
+          </div>
 
 
           {/* SOCIAL */}
@@ -119,7 +553,7 @@ function Footer() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`social-${social.name.toLowerCase()}`}
+                className={`footer-social ${social.className}`}
                 aria-label={social.name}
                 title={social.name}
               >
@@ -137,7 +571,9 @@ function Footer() {
         </div>
 
 
-        {/* ================= QUICK LINKS ================= */}
+        {/* =========================
+            QUICK LINKS
+        ========================== */}
 
         <div className="footer-column">
 
@@ -155,20 +591,24 @@ function Footer() {
             {quickLinks.map(
               ([label, link]) => (
 
-                <a
-                  href={link}
+                <button
+                  type="button"
                   key={label}
+                  onClick={() =>
+                    handleQuickLink(link)
+                  }
                 >
 
                   <span>
                     {label}
                   </span>
 
-                  <span className="footer-arrow">
-                    →
-                  </span>
+                  <ArrowRight
+                    size={14}
+                    className="footer-arrow"
+                  />
 
-                </a>
+                </button>
 
               )
             )}
@@ -178,7 +618,9 @@ function Footer() {
         </div>
 
 
-        {/* ================= LOCATIONS ================= */}
+        {/* =========================
+            LOCATIONS
+        ========================== */}
 
         <div className="footer-column">
 
@@ -196,22 +638,28 @@ function Footer() {
             {locations.map(
               (location) => (
 
-                <a
-                  href="#branches"
+                <button
+                  type="button"
                   key={location}
+                  onClick={handleLocation}
                 >
 
                   <span className="footer-location">
 
-                    <span className="location-dot">
-                      •
-                    </span>
+                    <MapPin
+                      size={13}
+                    />
 
                     {location}
 
                   </span>
 
-                </a>
+                  <ArrowRight
+                    size={13}
+                    className="footer-arrow"
+                  />
+
+                </button>
 
               )
             )}
@@ -221,7 +669,9 @@ function Footer() {
         </div>
 
 
-        {/* ================= CONTACT ================= */}
+        {/* =========================
+            CONTACT
+        ========================== */}
 
         <div className="footer-column">
 
@@ -236,11 +686,10 @@ function Footer() {
 
           <div className="footer-contact">
 
-
             <a href="tel:+971565953837">
 
               <span className="contact-icon">
-                ☎
+                <Phone size={15} />
               </span>
 
               <span>
@@ -253,7 +702,7 @@ function Footer() {
             <a href="mailto:info@alfanemirates.com">
 
               <span className="contact-icon">
-                @
+                <Mail size={15} />
               </span>
 
               <span>
@@ -262,9 +711,10 @@ function Footer() {
 
             </a>
 
-
           </div>
 
+
+          {/* WHATSAPP CTA */}
 
           <a
             href="https://wa.me/971565953837"
@@ -281,9 +731,10 @@ function Footer() {
               Chat on WhatsApp
             </span>
 
-            <span className="whatsapp-arrow">
-              ↗
-            </span>
+            <ArrowUpRight
+              size={16}
+              className="whatsapp-arrow"
+            />
 
           </a>
 
@@ -292,29 +743,34 @@ function Footer() {
       </div>
 
 
-      {/* ================= BOTTOM ================= */}
+      {/* =========================
+          BOTTOM
+      ========================== */}
 
       <div className="footer-bottom">
 
         <div className="footer-bottom-inner">
 
           <p>
-            © 2026 <strong>Al Fan Emirates</strong>.
-            All rights reserved.
+            © 2026{" "}
+            <strong>
+              Al Fan Emirates
+            </strong>
+            . All rights reserved.
           </p>
 
 
           <div className="footer-bottom-links">
 
-            <a href="#home">
+            <button type="button">
               Privacy
-            </a>
+            </button>
 
             <span>•</span>
 
-            <a href="#home">
+            <button type="button">
               Terms
-            </a>
+            </button>
 
           </div>
 

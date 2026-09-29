@@ -1,30 +1,43 @@
 
-import { ArrowRight, Clock3, MapPin, Tag } from "lucide-react";
+import { ArrowRight, MapPin, Tag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Offers() {
+  const navigate = useNavigate();
+
   const offers = [
     {
+      number: "01",
       badge: "HOT DEAL",
       title: "Men's Collection",
       discount: "UP TO 50% OFF",
-      description: "Fresh styles and everyday essentials.",
+      description:
+        "Discover refined everyday styles, modern essentials and timeless pieces.",
       branch: "Available at selected branches",
     },
     {
-      badge: "NEW",
+      number: "02",
+      badge: "NEW SEASON",
       title: "Kids Collection",
       discount: "SPECIAL PRICES",
-      description: "Fun, comfortable styles for little ones.",
+      description:
+        "Comfortable, stylish and playful pieces designed for every little moment.",
       branch: "Available across selected stores",
     },
     {
-      badge: "LIMITED",
+      number: "03",
+      badge: "JUST IN",
       title: "Footwear",
       discount: "NEW ARRIVALS",
-      description: "Step into the latest everyday styles.",
+      description:
+        "Complete your everyday look with fresh footwear made for every occasion.",
       branch: "Check your nearest branch",
     },
   ];
+
+  const goToOffers = () => {
+    navigate("/offers");
+  };
 
   return (
     <section className="offers-section" id="offers">
@@ -35,63 +48,35 @@ function Offers() {
 
         <div className="offers-header">
 
-          <div>
+          <div className="offers-heading">
+
             <span className="section-label">
-              DON'T MISS OUT
+              EXCLUSIVE OFFERS
             </span>
 
             <h2>
-              Hot <span>Offers</span>
+              Discover
+              <br />
+              <span>What's New.</span>
             </h2>
+
           </div>
 
-          <button className="view-offers-btn">
-            View All Offers
-            <ArrowRight size={18} />
-          </button>
-
-        </div>
-
-
-        {/* FEATURED OFFER */}
-
-        <div className="featured-offer">
-
-          <div className="featured-offer-content">
-
-            <div className="offer-badge">
-              <Tag size={15} />
-              SPECIAL OFFER
-            </div>
-
-            <h3>
-              Something
-              <br />
-              <span>Special</span>
-              <br />
-              for Everyone.
-            </h3>
+          <div className="offers-header-right">
 
             <p>
-              Discover great value across fashion,
-              footwear and everyday essentials.
+              Explore our latest offers, new arrivals
+              and everyday styles for the whole family.
             </p>
 
-            <button className="offer-main-btn">
-              Explore Offers
-              <ArrowRight size={18} />
+            <button
+              type="button"
+              className="offers-view-all"
+              onClick={goToOffers}
+            >
+              <span>View All Offers</span>
+              <ArrowRight size={17} />
             </button>
-
-          </div>
-
-
-          <div className="featured-offer-shape">
-
-            <div className="sale-circle">
-              <span>UP TO</span>
-              <strong>50%</strong>
-              <small>OFF</small>
-            </div>
 
           </div>
 
@@ -102,62 +87,87 @@ function Offers() {
 
         <div className="offers-grid">
 
-          {offers.map((offer, index) => (
+          {offers.map((offer) => (
 
-            <div className="offer-card" key={index}>
+            <article
+              className="offer-card"
+              key={offer.title}
+            >
+
+              {/* TOP */}
 
               <div className="offer-card-top">
 
-                <span className="offer-small-badge">
+                <span className="offer-number">
+                  {offer.number}
+                </span>
+
+                <span className="offer-badge">
+                  <Tag size={12} />
                   {offer.badge}
                 </span>
 
-                <div className="offer-icon">
-                  <Tag size={20} />
+              </div>
+
+
+              {/* DISCOUNT */}
+
+              <div className="offer-discount-wrap">
+
+                <span className="offer-discount-label">
+                  SPECIAL OFFER
+                </span>
+
+                <strong className="offer-discount">
+                  {offer.discount}
+                </strong>
+
+              </div>
+
+
+              {/* CONTENT */}
+
+              <div className="offer-card-content">
+
+                <h3>
+                  {offer.title}
+                </h3>
+
+                <p>
+                  {offer.description}
+                </p>
+
+                <div className="offer-branch">
+
+                  <MapPin size={14} />
+
+                  <span>
+                    {offer.branch}
+                  </span>
+
                 </div>
 
               </div>
 
-              <div className="offer-card-content">
 
-                <h3>{offer.title}</h3>
+              {/* ACTION */}
 
-                <strong>{offer.discount}</strong>
+              <button
+                type="button"
+                className="offer-explore"
+                onClick={goToOffers}
+                aria-label={`Explore ${offer.title}`}
+              >
+                <span>Explore Collection</span>
 
-                <p>{offer.description}</p>
-
-              </div>
-
-              <div className="offer-card-footer">
-
-                <span>
-                  <MapPin size={14} />
-                  {offer.branch}
+                <span className="offer-arrow">
+                  <ArrowRight size={16} />
                 </span>
+              </button>
 
-                <button>
-                  <ArrowRight size={17} />
-                </button>
-
-              </div>
-
-            </div>
+            </article>
 
           ))}
-
-        </div>
-
-
-        {/* OFFER NOTE */}
-
-        <div className="offers-note">
-
-          <Clock3 size={17} />
-
-          <span>
-            Offers may vary by branch. Visit your nearest
-            Al Fan Emirates store for availability.
-          </span>
 
         </div>
 

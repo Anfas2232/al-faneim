@@ -1,5 +1,186 @@
 
+// import { useEffect, useState } from "react";
+
+// function AnimatedNumber({ value, suffix = "" }) {
+//   const [count, setCount] = useState(0);
+
+//   useEffect(() => {
+//     let start = 0;
+
+//     const duration = 1200;
+//     const intervalTime = 30;
+
+//     const steps = duration / intervalTime;
+//     const increment = value / steps;
+
+//     const timer = setInterval(() => {
+//       start += increment;
+
+//       if (start >= value) {
+//         start = value;
+//         clearInterval(timer);
+//       }
+
+//       setCount(Math.floor(start));
+//     }, intervalTime);
+
+//     return () => {
+//       clearInterval(timer);
+//     };
+//   }, [value]);
+
+//   return (
+//     <>
+//       {count}
+//       {suffix}
+//     </>
+//   );
+// }
+
+
+// function WhyChooseUs() {
+//   const features = [
+//     {
+//       icon: "✓",
+//       number: 25,
+//       suffix: "+",
+//       title: "Years of Trust",
+//       description:
+//         "Serving families with quality products and everyday value.",
+//     },
+//     {
+//       icon: "⌖",
+//       number: 6,
+//       suffix: "",
+//       title: "UAE Locations",
+//       description:
+//         "Convenient stores across major cities in the UAE.",
+//     },
+//     {
+//       icon: "★",
+//       number: 1000,
+//       suffix: "+",
+//       title: "Products",
+//       description:
+//         "Fashion, footwear and everyday essentials for everyone.",
+//     },
+//     {
+//       icon: "♥",
+//       number: 1,
+//       suffix: "",
+//       title: "Family First",
+//       description:
+//         "A shopping experience designed around families and their needs.",
+//     },
+//   ];
+
+//   return (
+//     <section
+//       className="why-section"
+//       id="why-us"
+//       aria-labelledby="why-section-title"
+//     >
+
+//       <div className="why-container">
+
+//         {/* HEADER */}
+
+//         <div className="why-header">
+
+//           <div>
+
+//             <span className="section-label">
+//               WHY AL FAN EMIRATES
+//             </span>
+
+//             <h2 id="why-section-title">
+//               More Than
+//               <br />
+//               <span>Shopping.</span>
+//             </h2>
+
+//           </div>
+
+//           <p>
+//             We bring together quality, value and
+//             convenience to make everyday shopping
+//             better for families across the UAE.
+//           </p>
+
+//         </div>
+
+
+//         {/* FEATURES */}
+
+//         <div className="why-grid">
+
+//           {features.map((feature) => (
+
+//             <article
+//               className="why-card"
+//               key={feature.title}
+//             >
+
+//               {/* ICON */}
+
+//               <div
+//                 className="why-icon"
+//                 aria-hidden="true"
+//               >
+//                 {feature.icon}
+//               </div>
+
+
+//               {/* NUMBER */}
+
+//               <div className="why-number">
+
+//                 <AnimatedNumber
+//                   value={feature.number}
+//                   suffix={feature.suffix}
+//                 />
+
+//               </div>
+
+
+//               {/* TITLE */}
+
+//               <h3>
+//                 {feature.title}
+//               </h3>
+
+
+//               {/* DESCRIPTION */}
+
+//               <p>
+//                 {feature.description}
+//               </p>
+
+//             </article>
+
+//           ))}
+
+//         </div>
+
+//       </div>
+
+//     </section>
+//   );
+// }
+
+// export default WhyChooseUs;
+
+
+
 import { useEffect, useState } from "react";
+
+import {
+  ShieldCheck,
+  MapPin,
+  PackageCheck,
+  Heart,
+} from "lucide-react";
+
 
 function AnimatedNumber({ value, suffix = "" }) {
   const [count, setCount] = useState(0);
@@ -7,9 +188,8 @@ function AnimatedNumber({ value, suffix = "" }) {
   useEffect(() => {
     let start = 0;
 
-    const duration = 1200;
+    const duration = 1400;
     const intervalTime = 30;
-
     const steps = duration / intervalTime;
     const increment = value / steps;
 
@@ -24,9 +204,7 @@ function AnimatedNumber({ value, suffix = "" }) {
       setCount(Math.floor(start));
     }, intervalTime);
 
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, [value]);
 
   return (
@@ -37,10 +215,11 @@ function AnimatedNumber({ value, suffix = "" }) {
   );
 }
 
+
 function WhyChooseUs() {
   const features = [
     {
-      icon: "✓",
+      icon: ShieldCheck,
       number: 25,
       suffix: "+",
       title: "Years of Trust",
@@ -48,7 +227,7 @@ function WhyChooseUs() {
         "Serving families with quality products and everyday value.",
     },
     {
-      icon: "⌖",
+      icon: MapPin,
       number: 6,
       suffix: "",
       title: "UAE Locations",
@@ -56,7 +235,7 @@ function WhyChooseUs() {
         "Convenient stores across major cities in the UAE.",
     },
     {
-      icon: "★",
+      icon: PackageCheck,
       number: 1000,
       suffix: "+",
       title: "Products",
@@ -64,7 +243,7 @@ function WhyChooseUs() {
         "Fashion, footwear and everyday essentials for everyone.",
     },
     {
-      icon: "♥",
+      icon: Heart,
       number: 1,
       suffix: "",
       title: "Family First",
@@ -72,6 +251,7 @@ function WhyChooseUs() {
         "A shopping experience designed around families and their needs.",
     },
   ];
+
 
   return (
     <section
@@ -82,11 +262,13 @@ function WhyChooseUs() {
 
       <div className="why-container">
 
-        {/* HEADER */}
+        {/* =========================
+            HEADER
+        ========================== */}
 
         <div className="why-header">
 
-          <div>
+          <div className="why-heading">
 
             <span className="section-label">
               WHY AL FAN EMIRATES
@@ -100,64 +282,94 @@ function WhyChooseUs() {
 
           </div>
 
-          <p>
-            We bring together quality, value and
-            convenience to make everyday shopping
-            better for families across the UAE.
-          </p>
+
+          <div className="why-header-content">
+
+            <p>
+              We bring together quality, value and
+              convenience to make everyday shopping
+              better for families across the UAE.
+            </p>
+
+            <span className="why-header-note">
+              QUALITY • VALUE • FAMILY
+            </span>
+
+          </div>
 
         </div>
 
 
-        {/* FEATURES */}
+        {/* =========================
+            FEATURES
+        ========================== */}
 
         <div className="why-grid">
 
-          {features.map((feature) => (
+          {features.map((feature, index) => {
 
-            <article
-              className="why-card"
-              key={feature.title}
-            >
+            const Icon = feature.icon;
 
-              {/* ICON */}
-
-              <div
-                className="why-icon"
-                aria-hidden="true"
+            return (
+              <article
+                className="why-card"
+                key={feature.title}
               >
-                {feature.icon}
-              </div>
+
+                {/* NUMBER */}
+
+                <span
+                  className="why-card-number"
+                  aria-hidden="true"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
 
 
-              {/* NUMBER */}
+                {/* ICON */}
 
-              <div className="why-number">
+                <div
+                  className="why-icon"
+                  aria-hidden="true"
+                >
+                  <Icon size={22} strokeWidth={1.5} />
+                </div>
 
-                <AnimatedNumber
-                  value={feature.number}
-                  suffix={feature.suffix}
+
+                {/* STAT */}
+
+                <div className="why-number">
+                  <AnimatedNumber
+                    value={feature.number}
+                    suffix={feature.suffix}
+                  />
+                </div>
+
+
+                {/* TITLE */}
+
+                <h3>
+                  {feature.title}
+                </h3>
+
+
+                {/* DESCRIPTION */}
+
+                <p>
+                  {feature.description}
+                </p>
+
+
+                {/* BOTTOM LINE */}
+
+                <div
+                  className="why-card-line"
+                  aria-hidden="true"
                 />
 
-              </div>
-
-
-              {/* TITLE */}
-
-              <h3>
-                {feature.title}
-              </h3>
-
-
-              {/* DESCRIPTION */}
-
-              <p>
-                {feature.description}
-              </p>
-
-            </article>
-
-          ))}
+              </article>
+            );
+          })}
 
         </div>
 
@@ -167,5 +379,7 @@ function WhyChooseUs() {
   );
 }
 
+
 export default WhyChooseUs;
+
 

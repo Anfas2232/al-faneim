@@ -1,147 +1,163 @@
 
-  // import {
-  //   Shirt,
-  //   Baby,
-  //   Footprints,
-  //   ShoppingBag,
-  //   Sparkles,
-  //   Dumbbell,
-  //   Gamepad2,
-  // } from "lucide-react";
+// import {
+//   Shirt,
+//   Baby,
+//   Footprints,
+//   ShoppingBag,
+//   Sparkles,
+//   Dumbbell,
+//   Gamepad2,
+// } from "lucide-react";
 
-  // function Categories() {
-  //   const categories = [
-  //     {
-  //       name: "Men",
-  //       description: "Fashion & Essentials",
-  //       icon: Shirt,
-  //       link: "https://alfaneim.com/?page_id=3560",
-  //     },
-  //     {
-  //       name: "Women",
-  //       description: "Style & Collection",
-  //       icon: Sparkles,
-  //       link: "	https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/07/MG_3757.jpg?resize=1536%2C1024&ssl=1",
-  //     },
-  //     {
-  //       name: "Boys",
-  //       description: "Kids Fashion",
-  //       icon: Shirt,
-  //       link: "#boys-collection",
-  //     },
-  //     {
-  //       name: "Girls",
-  //       description: "Kids Collection",
-  //       icon: Baby,
-  //       link: "#girls-collection",
-  //     },
-  //     {
-  //       name: "Footwear",
-  //       description: "Shoes & Sandals",
-  //       icon: Footprints,
-  //       link: "#footwear-collection",
-  //     },
-  //     {
-  //       name: "Bags",
-  //       description: "Bags & Luggage",
-  //       icon: ShoppingBag,
-  //       link: "#bags-collection",
-  //     },
-  //     {
-  //       name: "Sportswear",
-  //       description: "Active Lifestyle",
-  //       icon: Dumbbell,
-  //       link: "#sportswear-collection",
-  //     },
-  //     {
-  //       name: "Toys",
-  //       description: "Fun For Kids",
-  //       icon: Gamepad2,
-  //       link: "#toys-collection",
-  //     },
-  //   ];
+// function Categories() {
+//   const categories = [
+//     {
+//       name: "Men",
+//       description: "Fashion & Essentials",
+//       icon: Shirt,
+//       image:
+//         "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=85",
+//       link: "https://alfaneim.com/?page_id=3560",
+//     },
+//     {
+//       name: "Women",
+//       description: "Style & Collection",
+//       icon: Sparkles,
+//       image:
+//         "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85",
+//       link:
+//         "https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/07/MG_3757.jpg?resize=1536%2C1024&ssl=1",
+//     },
+//     {
+//       name: "Boys",
+//       description: "Kids Fashion",
+//       icon: Shirt,
+//       image:
+//         "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=1200&q=85",
+//       link: "#boys-collection",
+//     },
+//     {
+//       name: "Girls",
+//       description: "Kids Collection",
+//       icon: Baby,
+//       image:
+//         "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=1200&q=85",
+//       link: "#girls-collection",
+//     },
+//     {
+//       name: "Footwear",
+//       description: "Shoes & Sandals",
+//       icon: Footprints,
+//       image:
+//         "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+//       link: "#footwear-collection",
+//     },
+//     {
+//       name: "Bags",
+//       description: "Bags & Luggage",
+//       icon: ShoppingBag,
+//       image:
+//         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
+//       link: "#bags-collection",
+//     },
+//     {
+//       name: "Sportswear",
+//       description: "Active Lifestyle",
+//       icon: Dumbbell,
+//       image:
+//         "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=85",
+//       link: "#sportswear-collection",
+//     },
+//     {
+//       name: "Toys",
+//       description: "Fun For Kids",
+//       icon: Gamepad2,
+//       image:
+//         "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?auto=format&fit=crop&w=1200&q=85",
+//       link: "#toys-collection",
+//     },
+//   ];
 
-  //   return (
-  //     <section
-  //       className="categories-section"
-  //       id="collections"
-  //     >
+//   return (
+//     <section className="categories-section" id="collections">
 
-  //       <div className="section-header">
+//       {/* Section Header */}
+//       <div className="section-header">
 
-  //         <div>
+//         <div>
+//           <span className="section-label">
+//             AL FAN EMIRATES
+//           </span>
 
-  //           <span className="section-label">
-  //             AL FAN EMIRATES
-  //           </span>
+//           <h2>
+//             Shop Your <span>Style</span>
+//           </h2>
+//         </div>
 
-  //           <h2>
-  //             Shop Your
-  //             <span> Style</span>
-  //           </h2>
+//         <p>
+//           Discover fashion, footwear and everyday
+//           essentials for the whole family.
+//         </p>
 
-  //         </div>
+//       </div>
 
-  //         <p>
-  //           Discover fashion, footwear and everyday
-  //           essentials for the whole family.
-  //         </p>
+//       {/* Categories */}
+//       <div className="categories-grid">
 
-  //       </div>
+//         {categories.map((category) => {
+//           const Icon = category.icon;
 
+//           return (
+//             <a
+//               href={category.link}
+//               className="category-card"
+//               key={category.name}
+//             >
 
-  //       <div className="categories-grid">
+//               {/* Background Image */}
+//               <img
+//                 src={category.image}
+//                 alt={category.name}
+//                 className="category-image"
+//               />
 
-  //         {categories.map((category) => {
+//               {/* Dark Overlay */}
+//               <div className="category-overlay"></div>
 
-  //           const Icon = category.icon;
+//               {/* Top Icon */}
+//               <div className="category-icon">
+//                 <Icon
+//                   size={30}
+//                   strokeWidth={1.6}
+//                 />
+//               </div>
 
-  //           return (
-  //             <article
-  //               className="category-card"
-  //               key={category.name}
-  //             >
+//               {/* Content */}
+//               <div className="category-info">
 
-  //               <div className="category-icon">
-  //                 <Icon
-  //                   size={30}
-  //                   strokeWidth={1.5}
-  //                 />
-  //               </div>
+//                 <h3>{category.name}</h3>
 
+//                 <p>{category.description}</p>
 
-  //               <div className="category-info">
+//                 <span className="category-arrow">
+//                   Explore Collection
+//                   <span className="arrow-icon">→</span>
+//                 </span>
 
-  //                 <h3>
-  //                   {category.name}
-  //                 </h3>
+//               </div>
 
-  //                 <p>
-  //                   {category.description}
-  //                 </p>
+//             </a>
+//           );
+//         })}
 
+//       </div>
 
-  //                 <a
-  //                   href={category.link}
-  //                   className="category-arrow"
-  //                 >
-  //                   Explore
-  //                   <span>→</span>
-  //                 </a>
+//     </section>
+//   );
+// }
 
-  //               </div>
+// export default Categories;
 
-  //             </article>
-  //           );
-  //         })}
-
-  //       </div>
-
-  //     </section>
-  //   );
-  // }
-
-  // export default Categories;
 
 
 import {
@@ -162,74 +178,85 @@ function Categories() {
       icon: Shirt,
       image:
         "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=85",
-      link: "https://alfaneim.com/?page_id=3560",
+      link: "/mens-collection",
     },
+
     {
       name: "Women",
       description: "Style & Collection",
       icon: Sparkles,
       image:
         "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85",
-      link:
-        "https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/07/MG_3757.jpg?resize=1536%2C1024&ssl=1",
+      link: "/womens-collection",
     },
+
     {
       name: "Boys",
       description: "Kids Fashion",
       icon: Shirt,
       image:
         "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=1200&q=85",
-      link: "#boys-collection",
+      link: "/kids-collection",
     },
+
     {
       name: "Girls",
       description: "Kids Collection",
       icon: Baby,
       image:
         "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=1200&q=85",
-      link: "#girls-collection",
+      link: "/kids-collection",
     },
+
     {
       name: "Footwear",
       description: "Shoes & Sandals",
       icon: Footprints,
       image:
         "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
-      link: "#footwear-collection",
+      link: "/footwear-collection",
     },
+
     {
       name: "Bags",
       description: "Bags & Luggage",
       icon: ShoppingBag,
       image:
         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
-      link: "#bags-collection",
+      link: "/bags-collection",
     },
+
     {
       name: "Sportswear",
       description: "Active Lifestyle",
       icon: Dumbbell,
       image:
         "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=85",
-      link: "#sportswear-collection",
+      link: "/sportswear-collection",
     },
+
     {
       name: "Toys",
       description: "Fun For Kids",
       icon: Gamepad2,
       image:
         "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?auto=format&fit=crop&w=1200&q=85",
-      link: "#toys-collection",
+      link: "/toys-collection",
     },
   ];
 
   return (
-    <section className="categories-section" id="collections">
+    <section
+      className="categories-section"
+      id="collections"
+    >
 
       {/* Section Header */}
+
       <div className="section-header">
 
         <div>
+
           <span className="section-label">
             AL FAN EMIRATES
           </span>
@@ -237,6 +264,7 @@ function Categories() {
           <h2>
             Shop Your <span>Style</span>
           </h2>
+
         </div>
 
         <p>
@@ -246,10 +274,13 @@ function Categories() {
 
       </div>
 
+
       {/* Categories */}
+
       <div className="categories-grid">
 
         {categories.map((category) => {
+
           const Icon = category.icon;
 
           return (
@@ -260,33 +291,51 @@ function Categories() {
             >
 
               {/* Background Image */}
+
               <img
                 src={category.image}
                 alt={category.name}
                 className="category-image"
               />
 
+
               {/* Dark Overlay */}
+
               <div className="category-overlay"></div>
 
+
               {/* Top Icon */}
+
               <div className="category-icon">
+
                 <Icon
                   size={30}
                   strokeWidth={1.6}
                 />
+
               </div>
 
+
               {/* Content */}
+
               <div className="category-info">
 
-                <h3>{category.name}</h3>
+                <h3>
+                  {category.name}
+                </h3>
 
-                <p>{category.description}</p>
+                <p>
+                  {category.description}
+                </p>
 
                 <span className="category-arrow">
+
                   Explore Collection
-                  <span className="arrow-icon">→</span>
+
+                  <span className="arrow-icon">
+                    →
+                  </span>
+
                 </span>
 
               </div>
@@ -302,4 +351,6 @@ function Categories() {
 }
 
 export default Categories;
+
+
 

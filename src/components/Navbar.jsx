@@ -1,413 +1,88 @@
-// import { useState, useEffect } from "react";
-// import {
-//   Search,
-//   MapPin,
-//   Menu,
-//   X,
-// } from "lucide-react";
-
-// function Navbar() {
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const [searchOpen, setSearchOpen] = useState(false);
-//   const [searchText, setSearchText] = useState("");
-//   const [activeSection, setActiveSection] = useState("home");
-
-//   const closeMenu = () => {
-//     setMenuOpen(false);
-//   };
-
-//   const closeSearch = () => {
-//     setSearchOpen(false);
-//     setSearchText("");
-//   };
-
-//   /* ACTIVE SECTION */
-
-//   useEffect(() => {
-//     const sections = [
-//       "home",
-//       "collections",
-//       "offers",
-//       "branches",
-//       "why-us",
-//     ];
-
-//     const handleScroll = () => {
-//       const scrollPosition = window.scrollY + 150;
-
-//       let currentSection = "home";
-
-//       sections.forEach((sectionId) => {
-//         const section =
-//           document.getElementById(sectionId);
-
-//         if (
-//           section &&
-//           scrollPosition >= section.offsetTop
-//         ) {
-//           currentSection = sectionId;
-//         }
-//       });
-
-//       setActiveSection(currentSection);
-//     };
-
-//     window.addEventListener(
-//       "scroll",
-//       handleScroll
-//     );
-
-//     handleScroll();
-
-//     return () => {
-//       window.removeEventListener(
-//         "scroll",
-//         handleScroll
-//       );
-//     };
-//   }, []);
-
-//   /* ESC KEY */
-
-//   useEffect(() => {
-//     const handleEscape = (event) => {
-//       if (event.key === "Escape") {
-//         setSearchOpen(false);
-//         setSearchText("");
-//         setMenuOpen(false);
-//       }
-//     };
-
-//     document.addEventListener(
-//       "keydown",
-//       handleEscape
-//     );
-
-//     return () => {
-//       document.removeEventListener(
-//         "keydown",
-//         handleEscape
-//       );
-//     };
-//   }, []);
-
-//   const navLinks = [
-//     {
-//       label: "Home",
-//       link: "#home",
-//       section: "home",
-//     },
-//     {
-//       label: "Collections",
-//       link: "#collections",
-//       section: "collections",
-//     },
-//     {
-//       label: "Offers",
-//       link: "#offers",
-//       section: "offers",
-//     },
-//     {
-//       label: "Branches",
-//       link: "#branches",
-//       section: "branches",
-//     },
-//     {
-//       label: "Why Us",
-//       link: "#why-us",
-//       section: "why-us",
-//     },
-//   ];
-
-//   const popularSearches = [
-//     "Men",
-//     "Women",
-//     "Kids",
-//     "Footwear",
-//     "Offers",
-//   ];
-
-//   const handlePopularSearch = (item) => {
-//     setSearchText(item);
-//   };
-
-//   return (
-//     <>
-//       <header className="navbar">
-
-//         <div className="nav-container">
-
-//           {/* LOGO */}
-
-//           <a
-//             href="#home"
-//             className="logo"
-//             onClick={closeMenu}
-//           >
-//             <span>AL FAN</span>
-//             <small>EMIRATES</small>
-//           </a>
-
-
-//           {/* NAV LINKS */}
-
-//           <nav className="nav-links">
-
-//             {navLinks.map((item) => (
-//               <a
-//                 key={item.section}
-//                 href={item.link}
-//                 className={
-//                   activeSection === item.section
-//                     ? "active"
-//                     : ""
-//                 }
-//               >
-//                 {item.label}
-//               </a>
-//             ))}
-
-//           </nav>
-
-
-//           {/* ACTIONS */}
-
-//           <div className="nav-actions">
-
-//             {/* SEARCH */}
-
-//             <button
-//               type="button"
-//               className="icon-btn"
-//               aria-label="Open search"
-//               onClick={() => {
-//                 setSearchOpen(true);
-//                 setMenuOpen(false);
-//               }}
-//             >
-//               <Search size={20} />
-//             </button>
-
-
-//             {/* LANGUAGE */}
-
-//             <button
-//               type="button"
-//               className="language-btn"
-//             >
-//               EN
-//             </button>
-
-
-//             {/* STORE */}
-
-//             <a
-//               href="#branches"
-//               className="store-btn"
-//             >
-//               <MapPin size={17} />
-//               Find Store
-//             </a>
-
-
-//             {/* MOBILE MENU */}
-
-//             <button
-//               type="button"
-//               className="mobile-menu"
-//               onClick={() =>
-//                 setMenuOpen(!menuOpen)
-//               }
-//               aria-label={
-//                 menuOpen
-//                   ? "Close menu"
-//                   : "Open menu"
-//               }
-//               aria-expanded={menuOpen}
-//             >
-//               {menuOpen ? (
-//                 <X size={22} />
-//               ) : (
-//                 <Menu size={22} />
-//               )}
-//             </button>
-
-//           </div>
-
-//         </div>
-
-
-//         {/* MOBILE NAV */}
-
-//         <div
-//           className={
-//             menuOpen
-//               ? "mobile-nav open"
-//               : "mobile-nav"
-//           }
-//         >
-
-//           {navLinks.map((item) => (
-//             <a
-//               key={item.section}
-//               href={item.link}
-//               className={
-//                 activeSection === item.section
-//                   ? "active"
-//                   : ""
-//               }
-//               onClick={closeMenu}
-//             >
-//               {item.label}
-//             </a>
-//           ))}
-
-//           <a
-//             href="#branches"
-//             className="mobile-store-btn"
-//             onClick={closeMenu}
-//           >
-//             <MapPin size={17} />
-//             Find Your Store
-//           </a>
-
-//         </div>
-
-//       </header>
-
-
-//       {/* SEARCH OVERLAY */}
-
-//       {searchOpen && (
-//         <div
-//           className="search-overlay"
-//           onClick={closeSearch}
-//         >
-
-//           <div
-//             className="search-box"
-//             onClick={(event) =>
-//               event.stopPropagation()
-//             }
-//           >
-
-//             <div className="search-header">
-
-//               <div className="search-input-wrapper">
-
-//                 <Search size={20} />
-
-//                 <input
-//                   type="text"
-//                   value={searchText}
-//                   onChange={(event) =>
-//                     setSearchText(
-//                       event.target.value
-//                     )
-//                   }
-//                   placeholder="Search Al Fan Emirates..."
-//                   autoFocus
-//                 />
-
-//               </div>
-
-//               <button
-//                 type="button"
-//                 className="search-close"
-//                 onClick={closeSearch}
-//                 aria-label="Close search"
-//               >
-//                 <X size={22} />
-//               </button>
-
-//             </div>
-
-
-//             {/* POPULAR SEARCHES */}
-
-//             <div className="popular-searches">
-
-//               <p>POPULAR SEARCHES</p>
-
-//               <div className="popular-list">
-
-//                 {popularSearches.map(
-//                   (item) => (
-//                     <button
-//                       type="button"
-//                       key={item}
-//                       onClick={() =>
-//                         handlePopularSearch(
-//                           item
-//                         )
-//                       }
-//                     >
-//                       {item}
-//                     </button>
-//                   )
-//                 )}
-
-//               </div>
-
-//             </div>
-
-
-//             {/* SEARCH MESSAGE */}
-
-//             {searchText && (
-//               <div className="search-message">
-
-//                 <span>
-//                   Searching for:
-//                 </span>
-
-//                 <strong>
-//                   {searchText}
-//                 </strong>
-
-//               </div>
-//             )}
-
-//           </div>
-
-//         </div>
-//       )}
-//     </>
-//   );
-// }
-
-// export default Navbar;
-
-
 
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import {
   Search,
   MapPin,
   Menu,
   X,
+  ChevronDown,
+  Shirt,
+  Sparkles,
+  Baby,
+  Footprints,
+  ShoppingBag,
+  Dumbbell,
+  Gamepad2,
 } from "lucide-react";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [activeSection, setActiveSection] = useState("home");
 
+
+  /* =========================
+     CLOSE MENU
+  ========================= */
+
   const closeMenu = () => {
     setMenuOpen(false);
+    setCollectionsOpen(false);
   };
+
+
+  /* =========================
+     CLOSE SEARCH
+  ========================= */
 
   const closeSearch = () => {
     setSearchOpen(false);
     setSearchText("");
   };
 
+
   /* =========================
-     ACTIVE SECTION ON SCROLL
+     GO TO HOMEPAGE SECTION
+  ========================= */
+
+  const goToSection = (sectionId) => {
+    closeMenu();
+    closeSearch();
+
+    if (location.pathname === "/") {
+      const section =
+        document.getElementById(sectionId);
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+
+      return;
+    }
+
+    navigate(`/#${sectionId}`);
+  };
+
+
+  /* =========================
+     ACTIVE SECTION
   ========================= */
 
   useEffect(() => {
+    if (location.pathname !== "/") {
+      return;
+    }
+
     const sections = [
       "home",
       "collections",
@@ -417,12 +92,14 @@ function Navbar() {
     ];
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition =
+        window.scrollY + 150;
 
       let currentSection = "home";
 
       sections.forEach((sectionId) => {
-        const section = document.getElementById(sectionId);
+        const section =
+          document.getElementById(sectionId);
 
         if (
           section &&
@@ -435,7 +112,10 @@ function Navbar() {
       setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
 
     handleScroll();
 
@@ -445,7 +125,8 @@ function Navbar() {
         handleScroll
       );
     };
-  }, []);
+  }, [location.pathname]);
+
 
   /* =========================
      ESC KEY
@@ -457,6 +138,7 @@ function Navbar() {
         setSearchOpen(false);
         setSearchText("");
         setMenuOpen(false);
+        setCollectionsOpen(false);
       }
     };
 
@@ -473,37 +155,92 @@ function Navbar() {
     };
   }, []);
 
+
   /* =========================
      NAVIGATION LINKS
   ========================= */
 
   const navLinks = [
     {
-      label: "Home",
-      link: "#home",
-      section: "home",
-    },
-    {
-      label: "Collections",
-      link: "#collections",
-      section: "collections",
-    },
-    {
       label: "Offers",
-      link: "#offers",
       section: "offers",
     },
     {
       label: "Branches",
-      link: "#branches",
       section: "branches",
     },
     {
       label: "Why Us",
-      link: "#why-us",
       section: "why-us",
     },
   ];
+
+
+  /* =========================
+     COLLECTIONS
+  ========================= */
+
+  const collections = [
+    {
+      name: "Men",
+      description: "Fashion & Essentials",
+      icon: Shirt,
+      route: "/mens-collection",
+    },
+    {
+      name: "Women",
+      description: "Style & Collection",
+      icon: Sparkles,
+      route: "/womens-collection",
+    },
+    {
+      name: "Kids",
+      description: "Kids Fashion",
+      icon: Baby,
+      route: "/kids-collection",
+    },
+    {
+      name: "Footwear",
+      description: "Shoes & Sandals",
+      icon: Footprints,
+      route: "/footwear-collection",
+    },
+    {
+      name: "Bags",
+      description: "Bags & Luggage",
+      icon: ShoppingBag,
+      route: "/bags-collection",
+    },
+    {
+      name: "Sportswear",
+      description: "Active Lifestyle",
+      icon: Dumbbell,
+      route: "/sportswear-collection",
+    },
+    {
+      name: "Toys",
+      description: "Fun For Kids",
+      icon: Gamepad2,
+      route: "/toys-collection",
+    },
+  ];
+
+
+  /* =========================
+     COLLECTION CLICK
+  ========================= */
+
+  const handleCollectionClick = (route) => {
+    closeMenu();
+
+    navigate(route);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
 
   /* =========================
      POPULAR SEARCHES
@@ -514,12 +251,186 @@ function Navbar() {
     "Women",
     "Kids",
     "Footwear",
+    "Bags",
+    "Sportswear",
+    "Toys",
     "Offers",
   ];
 
-  const handlePopularSearch = (item) => {
-    setSearchText(item);
+
+  /* =========================
+     SEARCH NAVIGATION
+  ========================= */
+
+  const handleSearchNavigation = (query) => {
+    const search =
+      query.trim().toLowerCase();
+
+    if (!search) {
+      return;
+    }
+
+
+    /* MEN */
+
+    if (
+      search === "men" ||
+      search === "mens" ||
+      search === "man" ||
+      search.includes("shirt") ||
+      search.includes("jeans") ||
+      search.includes("trousers")
+    ) {
+      navigate("/mens-collection");
+      return;
+    }
+
+
+    /* WOMEN */
+
+    if (
+      search === "women" ||
+      search === "womens" ||
+      search === "woman" ||
+      search === "ladies" ||
+      search.includes("dress") ||
+      search.includes("blouse")
+    ) {
+      navigate("/womens-collection");
+      return;
+    }
+
+
+    /* KIDS */
+
+    if (
+      search === "kids" ||
+      search === "kid" ||
+      search === "boys" ||
+      search === "girls" ||
+      search === "baby" ||
+      search === "children" ||
+      search.includes("school")
+    ) {
+      navigate("/kids-collection");
+      return;
+    }
+
+
+    /* FOOTWEAR */
+
+    if (
+      search === "footwear" ||
+      search === "shoes" ||
+      search === "shoe" ||
+      search === "sandals" ||
+      search === "slippers" ||
+      search === "sneakers"
+    ) {
+      navigate("/footwear-collection");
+      return;
+    }
+
+
+    /* BAGS */
+
+    if (
+      search === "bags" ||
+      search === "bag" ||
+      search === "backpack" ||
+      search === "handbag" ||
+      search === "luggage" ||
+      search === "wallet"
+    ) {
+      navigate("/bags-collection");
+      return;
+    }
+
+
+    /* SPORTSWEAR */
+
+    if (
+      search === "sportswear" ||
+      search === "sports" ||
+      search === "gym" ||
+      search === "running" ||
+      search === "football" ||
+      search === "activewear" ||
+      search === "training"
+    ) {
+      navigate("/sportswear-collection");
+      return;
+    }
+
+
+    /* TOYS */
+
+    if (
+      search === "toys" ||
+      search === "toy" ||
+      search === "games" ||
+      search === "puzzles" ||
+      search === "dolls"
+    ) {
+      navigate("/toys-collection");
+      return;
+    }
+
+
+    /* OFFERS */
+
+    if (
+      search === "offers" ||
+      search === "offer" ||
+      search === "sale" ||
+      search === "discount" ||
+      search === "deals"
+    ) {
+      goToSection("offers");
+      return;
+    }
+
+
+    /* DEFAULT */
+
+    navigate("/");
   };
+
+
+  /* =========================
+     SEARCH SUBMIT
+  ========================= */
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+
+    const query =
+      searchText.trim();
+
+    if (!query) {
+      return;
+    }
+
+    setSearchOpen(false);
+    setSearchText("");
+    setMenuOpen(false);
+
+    handleSearchNavigation(query);
+  };
+
+
+  /* =========================
+     POPULAR SEARCH CLICK
+  ========================= */
+
+  const handlePopularSearch = (item) => {
+    setSearchOpen(false);
+    setSearchText("");
+    setMenuOpen(false);
+
+    handleSearchNavigation(item);
+  };
+
 
   return (
     <>
@@ -531,47 +442,198 @@ function Navbar() {
 
         <div className="nav-container">
 
-          {/* =============================
-              LOGO
-          ============================= */}
+          {/* LOGO */}
 
-          <a
-            href="#home"
+          <button
+            type="button"
             className="logo"
-            onClick={closeMenu}
+            onClick={() =>
+              goToSection("home")
+            }
+            aria-label="Al Fan Emirates Home"
           >
             <img
               src="https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/05/AL-FAN-LOGO.png?w=540&ssl=1"
               alt="Al Fan Emirates"
               className="logo-image"
             />
-          </a>
+          </button>
 
-          {/* =============================
-              DESKTOP NAV LINKS
-          ============================= */}
+
+          {/* DESKTOP NAV */}
 
           <nav className="nav-links">
 
-            {navLinks.map((item) => (
-              <a
-                key={item.section}
-                href={item.link}
+            {/* HOME */}
+
+            <button
+              type="button"
+              className={
+                activeSection === "home"
+                  ? "active"
+                  : ""
+              }
+              onClick={() =>
+                goToSection("home")
+              }
+            >
+              Home
+            </button>
+
+
+            {/* COLLECTIONS */}
+
+            <div
+              className="nav-collections"
+              onMouseEnter={() =>
+                setCollectionsOpen(true)
+              }
+              onMouseLeave={() =>
+                setCollectionsOpen(false)
+              }
+            >
+
+              <button
+                type="button"
                 className={
-                  activeSection === item.section
+                  activeSection ===
+                  "collections"
+                    ? "active collections-nav-btn"
+                    : "collections-nav-btn"
+                }
+                onClick={() =>
+                  setCollectionsOpen(
+                    !collectionsOpen
+                  )
+                }
+              >
+                Collections
+
+                <ChevronDown
+                  size={15}
+                  className={
+                    collectionsOpen
+                      ? "rotate"
+                      : ""
+                  }
+                />
+              </button>
+
+
+              {/* MEGA MENU */}
+
+              {collectionsOpen && (
+
+                <div className="collections-mega-menu">
+
+                  <div className="mega-menu-header">
+
+                    <span>
+                      AL FAN EMIRATES
+                    </span>
+
+                    <h3>
+                      Explore Our Collections
+                    </h3>
+
+                    <p>
+                      Fashion, footwear and
+                      everyday essentials for
+                      the whole family.
+                    </p>
+
+                  </div>
+
+
+                  <div className="mega-menu-grid">
+
+                    {collections.map(
+                      (collection) => {
+
+                        const Icon =
+                          collection.icon;
+
+                        return (
+                          <button
+                            type="button"
+                            key={
+                              collection.name
+                            }
+                            className="mega-menu-item"
+                            onClick={() =>
+                              handleCollectionClick(
+                                collection.route
+                              )
+                            }
+                          >
+
+                            <div className="mega-menu-icon">
+                              <Icon
+                                size={23}
+                                strokeWidth={1.6}
+                              />
+                            </div>
+
+                            <div className="mega-menu-text">
+
+                              <strong>
+                                {
+                                  collection.name
+                                }
+                              </strong>
+
+                              <span>
+                                {
+                                  collection.description
+                                }
+                              </span>
+
+                            </div>
+
+                            <span className="mega-menu-arrow">
+                              →
+                            </span>
+
+                          </button>
+                        );
+                      }
+                    )}
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+
+            {/* OFFERS / BRANCHES / WHY US */}
+
+            {navLinks.map((item) => (
+              <button
+                type="button"
+                key={item.section}
+                className={
+                  activeSection ===
+                  item.section
                     ? "active"
                     : ""
                 }
+                onClick={() =>
+                  goToSection(
+                    item.section
+                  )
+                }
               >
                 {item.label}
-              </a>
+              </button>
             ))}
 
           </nav>
 
-          {/* =============================
-              NAV ACTIONS
-          ============================= */}
+
+          {/* NAV ACTIONS */}
 
           <div className="nav-actions">
 
@@ -584,10 +646,12 @@ function Navbar() {
               onClick={() => {
                 setSearchOpen(true);
                 setMenuOpen(false);
+                setCollectionsOpen(false);
               }}
             >
               <Search size={20} />
             </button>
+
 
             {/* LANGUAGE */}
 
@@ -598,25 +662,33 @@ function Navbar() {
               EN
             </button>
 
+
             {/* FIND STORE */}
 
-            <a
-              href="#branches"
+            <button
+              type="button"
               className="store-btn"
-              onClick={closeMenu}
+              onClick={() =>
+                goToSection("branches")
+              }
             >
               <MapPin size={17} />
-              <span>Find Store</span>
-            </a>
+
+              <span>
+                Find Store
+              </span>
+            </button>
+
 
             {/* MOBILE MENU */}
 
             <button
               type="button"
               className="mobile-menu"
-              onClick={() =>
-                setMenuOpen(!menuOpen)
-              }
+              onClick={() => {
+                setMenuOpen(!menuOpen);
+                setCollectionsOpen(false);
+              }}
               aria-label={
                 menuOpen
                   ? "Close menu"
@@ -635,8 +707,9 @@ function Navbar() {
 
         </div>
 
+
         {/* =================================
-            MOBILE NAVIGATION
+            MOBILE NAV
         ================================= */}
 
         <div
@@ -647,39 +720,128 @@ function Navbar() {
           }
         >
 
+          {/* HOME */}
+
+          <button
+            type="button"
+            className={
+              activeSection === "home"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              goToSection("home")
+            }
+          >
+            Home
+          </button>
+
+
+          {/* OFFERS / BRANCHES / WHY US */}
+
           {navLinks.map((item) => (
-            <a
+            <button
+              type="button"
               key={item.section}
-              href={item.link}
               className={
-                activeSection === item.section
+                activeSection ===
+                item.section
                   ? "active"
                   : ""
               }
-              onClick={closeMenu}
+              onClick={() =>
+                goToSection(
+                  item.section
+                )
+              }
             >
               {item.label}
-            </a>
+            </button>
           ))}
 
-          <a
-            href="#branches"
+
+          {/* MOBILE COLLECTIONS */}
+
+          <div className="mobile-collections">
+
+            <div className="mobile-collections-title">
+
+              <span>
+                Collections
+              </span>
+
+              <ChevronDown size={16} />
+
+            </div>
+
+
+            <div className="mobile-collections-list">
+
+              {collections.map(
+                (collection) => {
+
+                  const Icon =
+                    collection.icon;
+
+                  return (
+                    <button
+                      type="button"
+                      key={
+                        collection.name
+                      }
+                      onClick={() =>
+                        handleCollectionClick(
+                          collection.route
+                        )
+                      }
+                    >
+
+                      <Icon
+                        size={18}
+                        strokeWidth={1.7}
+                      />
+
+                      <span>
+                        {
+                          collection.name
+                        }
+                      </span>
+
+                    </button>
+                  );
+                }
+              )}
+
+            </div>
+
+          </div>
+
+
+          {/* MOBILE STORE */}
+
+          <button
+            type="button"
             className="mobile-store-btn"
-            onClick={closeMenu}
+            onClick={() =>
+              goToSection("branches")
+            }
           >
             <MapPin size={17} />
+
             Find Your Store
-          </a>
+          </button>
 
         </div>
 
       </header>
+
 
       {/* =================================
           SEARCH OVERLAY
       ================================= */}
 
       {searchOpen && (
+
         <div
           className="search-overlay"
           onClick={closeSearch}
@@ -696,7 +858,12 @@ function Navbar() {
 
             <div className="search-header">
 
-              <div className="search-input-wrapper">
+              <form
+                className="search-input-wrapper"
+                onSubmit={
+                  handleSearchSubmit
+                }
+              >
 
                 <Search size={20} />
 
@@ -710,9 +877,21 @@ function Navbar() {
                   }
                   placeholder="Search Al Fan Emirates..."
                   autoFocus
+                  aria-label="Search Al Fan Emirates"
                 />
 
-              </div>
+                <button
+                  type="submit"
+                  className="search-submit"
+                  aria-label="Submit search"
+                >
+                  →
+                </button>
+
+              </form>
+
+
+              {/* CLOSE */}
 
               <button
                 type="button"
@@ -725,13 +904,14 @@ function Navbar() {
 
             </div>
 
-            {/* =============================
-                POPULAR SEARCHES
-            ============================= */}
+
+            {/* POPULAR SEARCHES */}
 
             <div className="popular-searches">
 
-              <p>POPULAR SEARCHES</p>
+              <p>
+                POPULAR SEARCHES
+              </p>
 
               <div className="popular-list">
 
@@ -755,11 +935,11 @@ function Navbar() {
 
             </div>
 
-            {/* =============================
-                SEARCH MESSAGE
-            ============================= */}
+
+            {/* SEARCH MESSAGE */}
 
             {searchText && (
+
               <div className="search-message">
 
                 <span>
@@ -771,11 +951,13 @@ function Navbar() {
                 </strong>
 
               </div>
+
             )}
 
           </div>
 
         </div>
+
       )}
 
     </>
@@ -783,3 +965,4 @@ function Navbar() {
 }
 
 export default Navbar;
+
