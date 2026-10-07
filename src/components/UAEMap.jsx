@@ -77,6 +77,7 @@ function UAEMap({
 
       {/* LOCATION FILTER */}
 
+
       <div className="real-map-locations">
 
         {locations.map((location) => (

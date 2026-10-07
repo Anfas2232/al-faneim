@@ -1,4 +1,3 @@
-
 import { ArrowLeft, ArrowRight, Dumbbell } from "lucide-react";
 
 function SportswearCollection() {

@@ -1,4 +1,3 @@
-
 import { ArrowLeft, ArrowRight, ShoppingBag } from "lucide-react";
 
 function BagsCollection() {

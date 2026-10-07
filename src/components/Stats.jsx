@@ -1,4 +1,3 @@
-
 function Stats() {
   const stats = [
     {
