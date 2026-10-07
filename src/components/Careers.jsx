@@ -1,4 +1,3 @@
-
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -193,14 +192,20 @@ function Careers() {
       return;
     }
 
-    // Allowed file types
-    const allowedTypes = [
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    // Allowed extensions
+    const allowedExtensions = [
+      ".pdf",
+      ".doc",
+      ".docx",
     ];
 
-    if (!allowedTypes.includes(file.type)) {
+    const fileName = file.name.toLowerCase();
+
+    const isAllowed = allowedExtensions.some(
+      (extension) => fileName.endsWith(extension)
+    );
+
+    if (!isAllowed) {
       setFormError(
         "Please upload a PDF, DOC or DOCX file."
       );
@@ -230,26 +235,46 @@ function Careers() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (submitting) {
+      return;
+    }
+
     setSubmitting(true);
     setFormError("");
 
     try {
       const form = event.currentTarget;
 
+      // Create FormData from the actual form
       const data = new FormData(form);
 
-      // Required by Netlify Forms
+      // IMPORTANT:
+      // Netlify needs the exact form name
       data.set(
         "form-name",
         "career-application"
       );
 
-      // Make sure selected position is included
+      // Make sure selected job is included
       data.set(
         "position",
         selectedJob
       );
 
+      // Make sure CV exists
+      const cvFile = data.get("cv");
+
+      if (
+        !cvFile ||
+        !(cvFile instanceof File) ||
+        cvFile.size === 0
+      ) {
+        throw new Error(
+          "Please upload your CV."
+        );
+      }
+
+      // Submit to Netlify
       const response = await fetch("/", {
         method: "POST",
         body: data,
@@ -257,14 +282,16 @@ function Careers() {
 
       if (!response.ok) {
         throw new Error(
-          "Application submission failed."
+          `Netlify returned status ${response.status}`
         );
       }
 
+      // SUCCESS
       setSubmitted(true);
+
     } catch (error) {
       console.error(
-        "Career application error:",
+        "Career application submission error:",
         error
       );
 
@@ -738,18 +765,22 @@ function Careers() {
                   value="career-application"
                 />
 
-                {/* SPAM PROTECTION */}
+                {/* HONEYPOT */}
 
-                <p
+                <div
                   style={{
                     display: "none",
                   }}
                 >
                   <label>
-                    Don't fill this out:
-                    <input name="bot-field" />
+                    Don't fill this out if you're human:
+                    <input
+                      name="bot-field"
+                      tabIndex="-1"
+                      autoComplete="off"
+                    />
                   </label>
-                </p>
+                </div>
 
                 {/* FULL NAME */}
 
