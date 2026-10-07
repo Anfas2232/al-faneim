@@ -103,9 +103,8 @@ function Careers() {
   // =========================================================
 
   const scrollToJobs = () => {
-    const section = document.getElementById(
-      "career-openings"
-    );
+    const section =
+      document.getElementById("career-openings");
 
     if (section) {
       section.scrollIntoView({
@@ -115,12 +114,11 @@ function Careers() {
   };
 
   // =========================================================
-  // OPEN APPLICATION FORM
+  // OPEN APPLICATION
   // =========================================================
 
   const applyForJob = (jobTitle) => {
     setSelectedJob(jobTitle);
-
     setSubmitted(false);
     setSubmitting(false);
     setFormError("");
@@ -140,11 +138,15 @@ function Careers() {
   };
 
   // =========================================================
-  // CLOSE APPLICATION FORM
+  // CLOSE APPLICATION
   // =========================================================
 
   const closeApplyForm = () => {
     setShowApplyForm(false);
+    setSubmitted(false);
+    setSubmitting(false);
+    setFormError("");
+
     document.body.style.overflow = "auto";
   };
 
@@ -229,7 +231,7 @@ function Careers() {
   };
 
   // =========================================================
-  // SUBMIT APPLICATION TO NETLIFY
+  // SUBMIT TO NETLIFY
   // =========================================================
 
   const handleSubmit = async (event) => {
@@ -245,40 +247,45 @@ function Careers() {
     try {
       const form = event.currentTarget;
 
-      // Create FormData from the actual form
+      // Build FormData from the form
       const data = new FormData(form);
 
-      // IMPORTANT:
-      // Netlify needs the exact form name
+      // IMPORTANT FOR NETLIFY
       data.set(
         "form-name",
         "career-application"
       );
 
-      // Make sure selected job is included
+      // Selected job
       data.set(
         "position",
         selectedJob
       );
 
-      // Make sure CV exists
-      const cvFile = data.get("cv");
+      // Validate CV
+      const cv = data.get("cv");
 
       if (
-        !cvFile ||
-        !(cvFile instanceof File) ||
-        cvFile.size === 0
+        !cv ||
+        !(cv instanceof File) ||
+        cv.size === 0
       ) {
-        throw new Error(
-          "Please upload your CV."
+        setFormError(
+          "Please upload your CV before submitting."
         );
+
+        setSubmitting(false);
+        return;
       }
 
-      // Submit to Netlify
-      const response = await fetch("/", {
-        method: "POST",
-        body: data,
-      });
+      // Submit multipart form directly to Netlify
+      const response = await fetch(
+        window.location.pathname || "/",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -286,7 +293,7 @@ function Careers() {
         );
       }
 
-      // SUCCESS
+      // Successful submission
       setSubmitted(true);
 
     } catch (error) {
@@ -305,6 +312,10 @@ function Careers() {
 
   return (
     <>
+      {/* =====================================================
+          CAREERS PAGE
+      ===================================================== */}
+
       <main
         id="careers"
         className="cute-careers-page"
@@ -542,7 +553,7 @@ function Careers() {
               ))}
             </div>
 
-            {/* JOB LIST */}
+            {/* JOBS */}
 
             <div className="cute-job-list">
               {filteredJobs.map((job, index) => (
@@ -669,9 +680,9 @@ function Careers() {
         </section>
       </main>
 
-      {/* =========================================================
+      {/* =====================================================
           APPLICATION MODAL
-      ========================================================= */}
+      ===================================================== */}
 
       {showApplyForm && (
         <div
@@ -715,9 +726,7 @@ function Careers() {
               </button>
             </div>
 
-            {/* =================================================
-                SUCCESS MESSAGE
-            ================================================= */}
+            {/* SUCCESS */}
 
             {submitted ? (
               <div className="career-apply-success">
@@ -744,20 +753,17 @@ function Careers() {
                 </button>
               </div>
             ) : (
-              /* =================================================
-                 APPLICATION FORM
-              ================================================= */
-
               <form
                 name="career-application"
                 method="POST"
+                action="/"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 encType="multipart/form-data"
                 className="career-apply-form"
                 onSubmit={handleSubmit}
               >
-                {/* NETLIFY FORM NAME */}
+                {/* NETLIFY */}
 
                 <input
                   type="hidden"
@@ -773,7 +779,8 @@ function Careers() {
                   }}
                 >
                   <label>
-                    Don't fill this out if you're human:
+                    Don't fill this out:
+
                     <input
                       name="bot-field"
                       tabIndex="-1"
@@ -782,7 +789,7 @@ function Careers() {
                   </label>
                 </div>
 
-                {/* FULL NAME */}
+                {/* NAME */}
 
                 <div className="career-form-group">
                   <label htmlFor="career-name">
