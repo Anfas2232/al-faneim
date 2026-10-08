@@ -20,14 +20,11 @@
     />
 
     <title>Al Fan Emirates</title>
+  </head>
 
-    <!-- =====================================================
-         NETLIFY STATIC FORM DETECTION
-         IMPORTANT:
-         This hidden form allows Netlify to detect the
-         React-rendered career form during build.
-         ===================================================== -->
+  <body>
 
+    <!-- Netlify Forms detection -->
     <form
       name="career-application"
       method="POST"
@@ -36,22 +33,17 @@
       enctype="multipart/form-data"
       hidden
     >
-      <!-- Netlify form identification -->
       <input
         type="hidden"
         name="form-name"
         value="career-application"
       />
 
-      <!-- Honeypot -->
       <input
         type="text"
         name="bot-field"
-        tabindex="-1"
-        autocomplete="off"
       />
 
-      <!-- Same field names as React form -->
       <input
         type="text"
         name="fullName"
@@ -77,9 +69,7 @@
         name="experience"
       />
 
-      <textarea
-        name="message"
-      ></textarea>
+      <textarea name="message"></textarea>
 
       <input
         type="file"
@@ -87,15 +77,12 @@
       />
     </form>
 
-    <!-- =====================================================
-         REACT APPLICATION
-         ===================================================== -->
-
     <div id="root"></div>
 
     <script
       type="module"
       src="/src/main.jsx"
     ></script>
+
   </body>
 </html>
