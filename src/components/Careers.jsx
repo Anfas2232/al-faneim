@@ -1728,7 +1728,7 @@ function Careers() {
 
             {/* APPLICATION FORM */}
 
-            <form
+            {/* <form
               name="career-application"
               method="POST"
               action="/"
@@ -1737,7 +1737,20 @@ function Careers() {
               encType="multipart/form-data"
               className="career-apply-form"
               onSubmit={handleSubmit}
-            >
+            > */}
+
+            
+              <form
+              name="career-application"
+              method="POST"
+              action="/"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              encType="multipart/form-data"
+              className="career-apply-form"
+              onSubmit={handleSubmit}
+>
+
               {/* NETLIFY FORM NAME */}
 
               <input
