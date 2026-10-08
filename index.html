@@ -3,10 +3,6 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- =====================================================
-         BASIC META
-    ====================================================== -->
-
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
@@ -22,28 +18,20 @@
       content="#17120b"
     />
 
-    <!-- =====================================================
-         FAVICON
-    ====================================================== -->
-
     <link
       rel="icon"
       type="image/png"
       href="https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/05/AL-FAN-LOGO.png?w=540&ssl=1"
     />
 
-    <!-- =====================================================
-         TITLE
-    ====================================================== -->
-
     <title>Al Fan Emirates</title>
 
     <!-- =====================================================
-         NETLIFY FORMS DETECTION
+         NETLIFY FORMS STATIC FORM DETECTION
 
          IMPORTANT:
-         This hidden form is required because the actual
-         Careers form is rendered by React.
+         This form is hidden from visitors but Netlify scans
+         it during deployment.
     ====================================================== -->
 
     <form
@@ -54,7 +42,7 @@
       enctype="multipart/form-data"
       hidden
     >
-      <!-- Netlify form name -->
+      <!-- Form name -->
       <input
         type="hidden"
         name="form-name"
@@ -69,42 +57,42 @@
         autocomplete="off"
       />
 
-      <!-- =================================================
-           FORM FIELDS
-
-           These names MUST match the React form.
-      ================================================== -->
-
+      <!-- Full Name -->
       <input
         type="text"
         name="fullName"
       />
 
+      <!-- Email -->
       <input
         type="email"
         name="email"
       />
 
+      <!-- Phone -->
       <input
         type="tel"
         name="phone"
       />
 
+      <!-- Position -->
       <input
         type="text"
         name="position"
       />
 
+      <!-- Experience -->
       <input
         type="text"
         name="experience"
       />
 
+      <!-- Message -->
       <textarea
         name="message"
       ></textarea>
 
-      <!-- CV upload -->
+      <!-- CV -->
       <input
         type="file"
         name="cv"
@@ -115,19 +103,10 @@
 
   <body>
 
-    <!-- =====================================================
-         REACT APPLICATION
-    ====================================================== -->
-
+    <!-- React -->
     <div id="root"></div>
 
-    <!-- =====================================================
-         VITE / REACT ENTRY
-         
-         DO NOT manually change the generated asset name.
-         Vite will replace this during build.
-    ====================================================== -->
-
+    <!-- Vite entry -->
     <script
       type="module"
       src="/src/main.jsx"
