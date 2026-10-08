@@ -13,11 +13,6 @@
       content="Al Fan Emirates - Fashion, footwear and everyday essentials for the whole family across the UAE."
     />
 
-    <meta
-      name="theme-color"
-      content="#17120b"
-    />
-
     <link
       rel="icon"
       type="image/png"
@@ -27,12 +22,11 @@
     <title>Al Fan Emirates</title>
 
     <!-- =====================================================
-         NETLIFY FORMS STATIC FORM DETECTION
-
+         NETLIFY STATIC FORM DETECTION
          IMPORTANT:
-         This form is hidden from visitors but Netlify scans
-         it during deployment.
-    ====================================================== -->
+         This hidden form allows Netlify to detect the
+         React-rendered career form during build.
+         ===================================================== -->
 
     <form
       name="career-application"
@@ -42,7 +36,7 @@
       enctype="multipart/form-data"
       hidden
     >
-      <!-- Form name -->
+      <!-- Netlify form identification -->
       <input
         type="hidden"
         name="form-name"
@@ -57,60 +51,51 @@
         autocomplete="off"
       />
 
-      <!-- Full Name -->
+      <!-- Same field names as React form -->
       <input
         type="text"
         name="fullName"
       />
 
-      <!-- Email -->
       <input
         type="email"
         name="email"
       />
 
-      <!-- Phone -->
       <input
         type="tel"
         name="phone"
       />
 
-      <!-- Position -->
       <input
         type="text"
         name="position"
       />
 
-      <!-- Experience -->
       <input
         type="text"
         name="experience"
       />
 
-      <!-- Message -->
       <textarea
         name="message"
       ></textarea>
 
-      <!-- CV -->
       <input
         type="file"
         name="cv"
       />
     </form>
 
-  </head>
+    <!-- =====================================================
+         REACT APPLICATION
+         ===================================================== -->
 
-  <body>
-
-    <!-- React -->
     <div id="root"></div>
 
-    <!-- Vite entry -->
     <script
       type="module"
       src="/src/main.jsx"
     ></script>
-
   </body>
 </html>
