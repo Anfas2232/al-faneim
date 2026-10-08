@@ -991,6 +991,7 @@
 
 // export default Careers;
 
+
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -1014,6 +1015,7 @@ function Careers() {
   const [selectedJob, setSelectedJob] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -1116,9 +1118,9 @@ function Careers() {
 
   const applyForJob = (jobTitle) => {
     setSelectedJob(jobTitle);
-
     setSubmitting(false);
     setFormError("");
+    setSuccessMessage("");
 
     setFormData({
       fullName: "",
@@ -1142,6 +1144,7 @@ function Careers() {
     setShowApplyForm(false);
     setSubmitting(false);
     setFormError("");
+    setSuccessMessage("");
 
     document.body.style.overflow = "auto";
   };
@@ -1230,11 +1233,15 @@ function Careers() {
   // NETLIFY FORM SUBMIT
   // =========================================================
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
 
     setFormError("");
+    setSuccessMessage("");
 
+    // Get CV
     const cvInput = form.querySelector(
       'input[name="cv"]'
     );
@@ -1243,23 +1250,17 @@ function Careers() {
 
     // CV required
     if (!cv) {
-      event.preventDefault();
-
       setFormError(
         "Please upload your CV before submitting."
       );
-
       return;
     }
 
     // Maximum 5 MB
     if (cv.size > 5 * 1024 * 1024) {
-      event.preventDefault();
-
       setFormError(
         "CV file must be smaller than 5 MB."
       );
-
       return;
     }
 
@@ -1277,25 +1278,69 @@ function Careers() {
     );
 
     if (!isAllowed) {
-      event.preventDefault();
-
       setFormError(
         "Please upload a PDF, DOC or DOCX file."
       );
-
       return;
     }
 
-    /*
-      IMPORTANT:
-
-      Do NOT use fetch() here.
-
-      Netlify Forms will receive the form
-      through the native multipart POST.
-    */
-
     setSubmitting(true);
+
+    try {
+      // Create multipart form data
+      const formDataToSend = new FormData(form);
+
+      // Submit to Netlify
+      const response = await fetch("/", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Netlify returned status ${response.status}`
+        );
+      }
+
+      // Success
+      setSubmitting(false);
+
+      setSuccessMessage(
+        "Application submitted successfully! Thank you for applying."
+      );
+
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        experience: "",
+        message: "",
+        cv: null,
+      });
+
+      // Clear file input
+      if (cvInput) {
+        cvInput.value = "";
+      }
+
+      // Close modal after short delay
+      setTimeout(() => {
+        setShowApplyForm(false);
+        setSuccessMessage("");
+        document.body.style.overflow = "auto";
+      }, 2500);
+    } catch (error) {
+      console.error(
+        "Career application submission error:",
+        error
+      );
+
+      setSubmitting(false);
+
+      setFormError(
+        "Unable to submit your application. Please try again."
+      );
+    }
   };
 
   // =========================================================
@@ -1597,6 +1642,7 @@ function Careers() {
                     }
                   >
                     <span>Apply</span>
+
                     <ArrowRight size={17} />
                   </button>
                 </article>
@@ -1726,9 +1772,11 @@ function Careers() {
               </button>
             </div>
 
-            {/* APPLICATION FORM */}
+            {/* =================================================
+                NETLIFY FORM
+            ================================================= */}
 
-            {/* <form
+            <form
               name="career-application"
               method="POST"
               action="/"
@@ -1737,20 +1785,7 @@ function Careers() {
               encType="multipart/form-data"
               className="career-apply-form"
               onSubmit={handleSubmit}
-            > */}
-
-            
-              <form
-              name="career-application"
-              method="POST"
-              action="/"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              encType="multipart/form-data"
-              className="career-apply-form"
-              onSubmit={handleSubmit}
->
-
+            >
               {/* NETLIFY FORM NAME */}
 
               <input
@@ -1763,7 +1798,14 @@ function Careers() {
 
               <div
                 style={{
-                  display: "none",
+                  position: "absolute",
+                  overflow: "hidden",
+                  clip: "rect(0 0 0 0)",
+                  height: "1px",
+                  width: "1px",
+                  margin: "-1px",
+                  padding: 0,
+                  border: 0,
                 }}
               >
                 <label>
@@ -1883,7 +1925,7 @@ function Careers() {
                 </select>
               </div>
 
-              {/* CV */}
+              {/* CV UPLOAD */}
 
               <div className="career-form-group">
                 <label htmlFor="career-cv">
@@ -1918,7 +1960,7 @@ function Careers() {
                 />
               </div>
 
-              {/* MESSAGE */}
+              {/* COVER MESSAGE */}
 
               <div className="career-form-group">
                 <label htmlFor="career-message">
@@ -1936,7 +1978,7 @@ function Careers() {
                 />
               </div>
 
-              {/* ERROR */}
+              {/* ERROR MESSAGE */}
 
               {formError && (
                 <div
@@ -1950,6 +1992,24 @@ function Careers() {
                   }}
                 >
                   {formError}
+                </div>
+              )}
+
+              {/* SUCCESS MESSAGE */}
+
+              {successMessage && (
+                <div
+                  style={{
+                    marginBottom: "15px",
+                    padding: "14px 16px",
+                    borderRadius: "10px",
+                    background: "#eefaf1",
+                    color: "#217a3b",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {successMessage}
                 </div>
               )}
 
