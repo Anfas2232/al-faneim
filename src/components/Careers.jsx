@@ -1902,17 +1902,14 @@ function Careers() {
               </div>
             ) : (
               <form
-                name="career-application"
-                method="POST"
-                action="/"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                encType="multipart/form-data"
-                className="career-apply-form"
-                onSubmit={
-                  handleSubmit
-                }
-              >
+  name="career-application"
+  method="POST"
+  action="/"
+  data-netlify="true"
+  data-netlify-honeypot="bot-field"
+  encType="multipart/form-data"
+  onSubmit={handleSubmit}
+>
                 {/* =================================================
                     NETLIFY FORM NAME
                 ================================================= */}
