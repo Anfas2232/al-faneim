@@ -3,11 +3,9 @@
   <head>
     <meta charset="UTF-8" />
 
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/05/AL-FAN-LOGO.png?w=540&ssl=1"
-    />
+    <!-- =====================================================
+         BASIC META
+    ====================================================== -->
 
     <meta
       name="viewport"
@@ -19,14 +17,34 @@
       content="Al Fan Emirates - Fashion, footwear and everyday essentials for the whole family across the UAE."
     />
 
-    <title>Al Fan Emirates</title>
-  </head>
+    <meta
+      name="theme-color"
+      content="#17120b"
+    />
 
-  <body>
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://i0.wp.com/alfaneim.com/wp-content/uploads/2021/05/AL-FAN-LOGO.png?w=540&ssl=1"
+    />
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+    <title>Al Fan Emirates</title>
 
     <!-- =====================================================
          NETLIFY FORMS DETECTION
-         ===================================================== -->
+
+         IMPORTANT:
+         This hidden form is required because the actual
+         Careers form is rendered by React.
+    ====================================================== -->
 
     <form
       name="career-application"
@@ -43,14 +61,20 @@
         value="career-application"
       />
 
-      <!-- Honeypot spam protection -->
+      <!-- Honeypot -->
       <input
-        type="hidden"
+        type="text"
         name="bot-field"
-        value=""
+        tabindex="-1"
+        autocomplete="off"
       />
 
-      <!-- Form fields -->
+      <!-- =================================================
+           FORM FIELDS
+
+           These names MUST match the React form.
+      ================================================== -->
+
       <input
         type="text"
         name="fullName"
@@ -87,11 +111,22 @@
       />
     </form>
 
+  </head>
+
+  <body>
+
     <!-- =====================================================
          REACT APPLICATION
-         ===================================================== -->
+    ====================================================== -->
 
     <div id="root"></div>
+
+    <!-- =====================================================
+         VITE / REACT ENTRY
+         
+         DO NOT manually change the generated asset name.
+         Vite will replace this during build.
+    ====================================================== -->
 
     <script
       type="module"
