@@ -1011,12 +1011,23 @@ import {
 import { useState } from "react";
 
 function Careers() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [showApplyForm, setShowApplyForm] = useState(false);
-  const [selectedJob, setSelectedJob] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [formError, setFormError] = useState("");
+  const [selectedCategory, setSelectedCategory] =
+    useState("All");
+
+  const [showApplyForm, setShowApplyForm] =
+    useState(false);
+
+  const [selectedJob, setSelectedJob] =
+    useState("");
+
+  const [submitted, setSubmitted] =
+    useState(false);
+
+  const [submitting, setSubmitting] =
+    useState(false);
+
+  const [formError, setFormError] =
+    useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -1027,11 +1038,16 @@ function Careers() {
     cv: null,
   });
 
+  // =========================================================
+  // JOBS
+  // =========================================================
+
   const jobs = [
     {
       title: "IT Executive",
       category: "IT",
-      location: "Dubai / Al Ain / Abu Dhabi / Fujairah",
+      location:
+        "Dubai / Al Ain / Abu Dhabi / Fujairah",
       type: "Full Time",
       description:
         "Help keep our stores, systems and everyday technology running smoothly.",
@@ -1090,7 +1106,8 @@ function Careers() {
     selectedCategory === "All"
       ? jobs
       : jobs.filter(
-          (job) => job.category === selectedCategory
+          (job) =>
+            job.category === selectedCategory
         );
 
   // =========================================================
@@ -1099,7 +1116,9 @@ function Careers() {
 
   const scrollToJobs = () => {
     const section =
-      document.getElementById("career-openings");
+      document.getElementById(
+        "career-openings"
+      );
 
     if (section) {
       section.scrollIntoView({
@@ -1109,13 +1128,16 @@ function Careers() {
   };
 
   // =========================================================
-  // OPEN APPLICATION FORM
+  // OPEN APPLICATION
   // =========================================================
 
   const applyForJob = (jobTitle) => {
     setSelectedJob(jobTitle);
+
     setSubmitted(false);
+
     setSubmitting(false);
+
     setFormError("");
 
     setFormData({
@@ -1133,13 +1155,16 @@ function Careers() {
   };
 
   // =========================================================
-  // CLOSE APPLICATION FORM
+  // CLOSE APPLICATION
   // =========================================================
 
   const closeApplyForm = () => {
     setShowApplyForm(false);
+
     setSubmitted(false);
+
     setSubmitting(false);
+
     setFormError("");
 
     document.body.style.overflow = "auto";
@@ -1150,7 +1175,10 @@ function Careers() {
   // =========================================================
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const {
+      name,
+      value,
+    } = event.target;
 
     setFormData((previous) => ({
       ...previous,
@@ -1167,14 +1195,18 @@ function Careers() {
   // =========================================================
 
   const handleFileChange = (event) => {
-    const file = event.target.files?.[0];
+    const file =
+      event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
     // Maximum 5 MB
-    if (file.size > 5 * 1024 * 1024) {
+    if (
+      file.size >
+      5 * 1024 * 1024
+    ) {
       setFormError(
         "CV file must be smaller than 5 MB."
       );
@@ -1196,11 +1228,16 @@ function Careers() {
       ".docx",
     ];
 
-    const fileName = file.name.toLowerCase();
+    const fileName =
+      file.name.toLowerCase();
 
-    const isAllowed = allowedExtensions.some(
-      (extension) => fileName.endsWith(extension)
-    );
+    const isAllowed =
+      allowedExtensions.some(
+        (extension) =>
+          fileName.endsWith(
+            extension
+          )
+      );
 
     if (!isAllowed) {
       setFormError(
@@ -1226,126 +1263,92 @@ function Careers() {
   };
 
   // =========================================================
-  // SUBMIT APPLICATION
+  // NETLIFY FORM SUBMIT
   // =========================================================
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = (event) => {
+    const form =
+      event.currentTarget;
 
-    if (submitting) {
+    setFormError("");
+
+    // Get CV
+    const cvInput =
+      form.querySelector(
+        'input[name="cv"]'
+      );
+
+    const cv =
+      cvInput?.files?.[0];
+
+    // CV required
+    if (!cv) {
+      event.preventDefault();
+
+      setFormError(
+        "Please upload your CV before submitting."
+      );
+
       return;
     }
 
-    setSubmitting(true);
-    setFormError("");
-
-    try {
-      const form = event.currentTarget;
-
-      // Create FormData
-      const data = new FormData(form);
-
-      // Netlify form name
-      data.set(
-        "form-name",
-        "career-application"
-      );
-
-      // Selected job
-      data.set(
-        "position",
-        selectedJob
-      );
-
-      // Honeypot
-      const botField = data.get("bot-field");
-
-      if (botField) {
-        setSubmitting(false);
-        return;
-      }
-
-      // Validate CV
-      const cv = data.get("cv");
-
-      if (
-        !cv ||
-        !(cv instanceof File) ||
-        cv.size === 0
-      ) {
-        setFormError(
-          "Please upload your CV before submitting."
-        );
-
-        setSubmitting(false);
-        return;
-      }
-
-      // =====================================================
-      // NETLIFY FORM SUBMISSION
-      // =====================================================
-
-      const encodedData = new URLSearchParams();
-
-      for (const [key, value] of data.entries()) {
-        if (key !== "cv") {
-          encodedData.append(
-            key,
-            value
-          );
-        }
-      }
-
-      /*
-        IMPORTANT:
-
-        Netlify Forms can receive normal fields
-        through this endpoint.
-
-        CV file upload requires the multipart
-        form submission handled by Netlify.
-      */
-
-      const response = await fetch("/", {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/x-www-form-urlencoded",
-        },
-        body: encodedData.toString(),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          `Netlify returned status ${response.status}`
-        );
-      }
-
-      // Successful application
-      setSubmitted(true);
-
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        experience: "",
-        message: "",
-        cv: null,
-      });
-
-    } catch (error) {
-      console.error(
-        "Career application submission error:",
-        error
-      );
+    // Maximum 5 MB
+    if (
+      cv.size >
+      5 * 1024 * 1024
+    ) {
+      event.preventDefault();
 
       setFormError(
-        "Something went wrong. Please try again."
+        "CV file must be smaller than 5 MB."
       );
-    } finally {
-      setSubmitting(false);
+
+      return;
     }
+
+    // Allowed extensions
+    const allowedExtensions = [
+      ".pdf",
+      ".doc",
+      ".docx",
+    ];
+
+    const fileName =
+      cv.name.toLowerCase();
+
+    const isAllowed =
+      allowedExtensions.some(
+        (extension) =>
+          fileName.endsWith(
+            extension
+          )
+      );
+
+    if (!isAllowed) {
+      event.preventDefault();
+
+      setFormError(
+        "Please upload a PDF, DOC or DOCX file."
+      );
+
+      return;
+    }
+
+    /*
+      IMPORTANT:
+
+      No fetch() here.
+
+      The browser will submit the
+      multipart form directly to Netlify.
+    */
+
+    setSubmitting(true);
   };
+
+  // =========================================================
+  // PAGE
+  // =========================================================
 
   return (
     <>
@@ -1363,33 +1366,43 @@ function Careers() {
 
         <section className="cute-careers-hero">
           <div className="cute-hero-shape cute-shape-one"></div>
+
           <div className="cute-hero-shape cute-shape-two"></div>
+
           <div className="cute-hero-shape cute-shape-three"></div>
 
           <div className="cute-hero-container">
             <div className="cute-hero-content">
               <div className="cute-hero-badge">
                 <Sparkles size={14} />
-                <span>WE ARE GROWING</span>
+
+                <span>
+                  WE ARE GROWING
+                </span>
               </div>
 
               <h1>
                 Your Journey.
                 <br />
-                <span>Our Family.</span>
+
+                <span>
+                  Our Family.
+                </span>
               </h1>
 
               <p>
-                Come grow with a team that believes
-                great things happen when good people
-                work together.
+                Come grow with a team that
+                believes great things happen
+                when good people work together.
               </p>
 
               <div className="cute-hero-actions">
                 <button
                   type="button"
                   className="cute-primary-btn"
-                  onClick={scrollToJobs}
+                  onClick={
+                    scrollToJobs
+                  }
                 >
                   <span>
                     Explore Opportunities
@@ -1400,6 +1413,7 @@ function Careers() {
 
                 <span className="cute-hero-note">
                   Made with people in mind
+
                   <Heart size={13} />
                 </span>
               </div>
@@ -1408,7 +1422,10 @@ function Careers() {
             <div className="cute-hero-visual">
               <div className="cute-visual-card">
                 <div className="cute-visual-top">
-                  <span>AL FAN</span>
+                  <span>
+                    AL FAN
+                  </span>
+
                   <span className="cute-visual-dot"></span>
                 </div>
 
@@ -1425,26 +1442,43 @@ function Careers() {
                 </div>
 
                 <div className="cute-visual-bottom">
-                  <span>PEOPLE</span>
-                  <span>PASSION</span>
-                  <span>GROWTH</span>
+                  <span>
+                    PEOPLE
+                  </span>
+
+                  <span>
+                    PASSION
+                  </span>
+
+                  <span>
+                    GROWTH
+                  </span>
                 </div>
               </div>
 
               <div className="cute-floating-card cute-card-love">
                 <Heart size={15} />
-                <span>People First</span>
+
+                <span>
+                  People First
+                </span>
               </div>
 
               <div className="cute-floating-card cute-card-growth">
                 <Sparkles size={15} />
-                <span>Grow With Us</span>
+
+                <span>
+                  Grow With Us
+                </span>
               </div>
             </div>
           </div>
 
           <div className="cute-hero-scroll">
-            <span>SCROLL TO EXPLORE</span>
+            <span>
+              SCROLL TO EXPLORE
+            </span>
+
             <div></div>
           </div>
         </section>
@@ -1464,15 +1498,18 @@ function Careers() {
                 <h2>
                   Work hard.
                   <br />
-                  <span>Grow happily.</span>
+
+                  <span>
+                    Grow happily.
+                  </span>
                 </h2>
               </div>
 
               <p>
                 We are more than a workplace.
                 We are a growing family of people
-                who bring energy, creativity and care
-                into everything we do.
+                who bring energy, creativity and
+                care into everything we do.
               </p>
             </div>
 
@@ -1482,13 +1519,18 @@ function Careers() {
                   <Users size={22} />
                 </div>
 
-                <span>01</span>
+                <span>
+                  01
+                </span>
 
-                <h3>Good People</h3>
+                <h3>
+                  Good People
+                </h3>
 
                 <p>
                   A friendly environment where
-                  everyone has a chance to contribute.
+                  everyone has a chance to
+                  contribute.
                 </p>
               </article>
 
@@ -1497,9 +1539,13 @@ function Careers() {
                   <GraduationCap size={22} />
                 </div>
 
-                <span>02</span>
+                <span>
+                  02
+                </span>
 
-                <h3>Keep Learning</h3>
+                <h3>
+                  Keep Learning
+                </h3>
 
                 <p>
                   Discover new skills and keep
@@ -1512,13 +1558,18 @@ function Careers() {
                   <Coffee size={22} />
                 </div>
 
-                <span>03</span>
+                <span>
+                  03
+                </span>
 
-                <h3>Enjoy The Journey</h3>
+                <h3>
+                  Enjoy The Journey
+                </h3>
 
                 <p>
-                  We believe work can be meaningful,
-                  productive and enjoyable.
+                  We believe work can be
+                  meaningful, productive and
+                  enjoyable.
                 </p>
               </article>
 
@@ -1527,13 +1578,17 @@ function Careers() {
                   <Heart size={22} />
                 </div>
 
-                <span>04</span>
+                <span>
+                  04
+                </span>
 
-                <h3>Family Spirit</h3>
+                <h3>
+                  Family Spirit
+                </h3>
 
                 <p>
-                  Respect, teamwork and care are
-                  part of who we are.
+                  Respect, teamwork and care
+                  are part of who we are.
                 </p>
               </article>
             </div>
@@ -1558,86 +1613,122 @@ function Careers() {
                 <h2>
                   Let's Find
                   <br />
-                  <span>Your Role.</span>
+
+                  <span>
+                    Your Role.
+                  </span>
                 </h2>
               </div>
 
               <p>
-                Find an opportunity where your skills,
-                personality and ambitions can make
-                a real difference.
+                Find an opportunity where your
+                skills, personality and ambitions
+                can make a real difference.
               </p>
             </div>
 
             {/* FILTERS */}
 
             <div className="cute-career-filters">
-              {categories.map((category) => (
-                <button
-                  type="button"
-                  key={category}
-                  className={
-                    selectedCategory === category
-                      ? "cute-career-filter active"
-                      : "cute-career-filter"
-                  }
-                  onClick={() =>
-                    setSelectedCategory(category)
-                  }
-                >
-                  {category}
-                </button>
-              ))}
+              {categories.map(
+                (category) => (
+                  <button
+                    type="button"
+                    key={category}
+                    className={
+                      selectedCategory ===
+                      category
+                        ? "cute-career-filter active"
+                        : "cute-career-filter"
+                    }
+                    onClick={() =>
+                      setSelectedCategory(
+                        category
+                      )
+                    }
+                  >
+                    {category}
+                  </button>
+                )
+              )}
             </div>
 
             {/* JOBS */}
 
             <div className="cute-job-list">
-              {filteredJobs.map((job, index) => (
-                <article
-                  className="cute-job-card"
-                  key={job.title}
-                >
-                  <div className="cute-job-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-
-                  <div className="cute-job-icon">
-                    <BriefcaseBusiness size={21} />
-                  </div>
-
-                  <div className="cute-job-content">
-                    <span>{job.category}</span>
-
-                    <h3>{job.title}</h3>
-
-                    <p>{job.description}</p>
-
-                    <div className="cute-job-meta">
-                      <span>
-                        <MapPin size={14} />
-                        {job.location}
-                      </span>
-
-                      <span>
-                        <Clock3 size={14} />
-                        {job.type}
-                      </span>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="cute-apply-btn"
-                    onClick={() =>
-                      applyForJob(job.title)
-                    }
+              {filteredJobs.map(
+                (job, index) => (
+                  <article
+                    className="cute-job-card"
+                    key={job.title}
                   >
-                    <span>Apply</span>
-                    <ArrowRight size={17} />
-                  </button>
-                </article>
-              ))}
+                    <div className="cute-job-number">
+                      {String(
+                        index + 1
+                      ).padStart(
+                        2,
+                        "0"
+                      )}
+                    </div>
+
+                    <div className="cute-job-icon">
+                      <BriefcaseBusiness
+                        size={21}
+                      />
+                    </div>
+
+                    <div className="cute-job-content">
+                      <span>
+                        {job.category}
+                      </span>
+
+                      <h3>
+                        {job.title}
+                      </h3>
+
+                      <p>
+                        {job.description}
+                      </p>
+
+                      <div className="cute-job-meta">
+                        <span>
+                          <MapPin
+                            size={14}
+                          />
+
+                          {job.location}
+                        </span>
+
+                        <span>
+                          <Clock3
+                            size={14}
+                          />
+
+                          {job.type}
+                        </span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="cute-apply-btn"
+                      onClick={() =>
+                        applyForJob(
+                          job.title
+                        )
+                      }
+                    >
+                      <span>
+                        Apply
+                      </span>
+
+                      <ArrowRight
+                        size={17}
+                      />
+                    </button>
+                  </article>
+                )
+              )}
             </div>
           </div>
         </section>
@@ -1661,6 +1752,7 @@ function Careers() {
             <h2>
               Different people.
               <br />
+
               <span>
                 One beautiful journey.
               </span>
@@ -1680,6 +1772,7 @@ function Careers() {
 
         <section className="cute-careers-cta">
           <div className="cute-cta-circle circle-one"></div>
+
           <div className="cute-cta-circle circle-two"></div>
 
           <div className="cute-cta-content">
@@ -1694,7 +1787,10 @@ function Careers() {
             <h2>
               Don't See Your
               <br />
-              <span>Perfect Role?</span>
+
+              <span>
+                Perfect Role?
+              </span>
             </h2>
 
             <p>
@@ -1707,11 +1803,18 @@ function Careers() {
               type="button"
               className="cute-cta-btn"
               onClick={() =>
-                applyForJob("General Application")
+                applyForJob(
+                  "General Application"
+                )
               }
             >
-              <span>Send Your CV</span>
-              <ArrowRight size={17} />
+              <span>
+                Send Your CV
+              </span>
+
+              <ArrowRight
+                size={17}
+              />
             </button>
           </div>
         </section>
@@ -1726,7 +1829,8 @@ function Careers() {
           className="career-apply-overlay"
           onMouseDown={(event) => {
             if (
-              event.target === event.currentTarget
+              event.target ===
+              event.currentTarget
             ) {
               closeApplyForm();
             }
@@ -1750,13 +1854,17 @@ function Careers() {
                   Apply for this role
                 </h2>
 
-                <p>{selectedJob}</p>
+                <p>
+                  {selectedJob}
+                </p>
               </div>
 
               <button
                 type="button"
                 className="career-apply-close"
-                onClick={closeApplyForm}
+                onClick={
+                  closeApplyForm
+                }
                 aria-label="Close application form"
               >
                 <X size={22} />
@@ -1777,14 +1885,17 @@ function Careers() {
 
                 <p>
                   Thank you for applying to
-                  Al Fan Emirates. Your application
-                  has been submitted successfully.
+                  Al Fan Emirates. Your
+                  application has been
+                  submitted successfully.
                 </p>
 
                 <button
                   type="button"
                   className="career-success-btn"
-                  onClick={closeApplyForm}
+                  onClick={
+                    closeApplyForm
+                  }
                 >
                   Done
                 </button>
@@ -1798,9 +1909,13 @@ function Careers() {
                 data-netlify-honeypot="bot-field"
                 encType="multipart/form-data"
                 className="career-apply-form"
-                onSubmit={handleSubmit}
+                onSubmit={
+                  handleSubmit
+                }
               >
-                {/* NETLIFY */}
+                {/* =================================================
+                    NETLIFY FORM NAME
+                ================================================= */}
 
                 <input
                   type="hidden"
@@ -1808,7 +1923,9 @@ function Careers() {
                   value="career-application"
                 />
 
-                {/* HONEYPOT */}
+                {/* =================================================
+                    HONEYPOT
+                ================================================= */}
 
                 <div
                   style={{
@@ -1826,7 +1943,9 @@ function Careers() {
                   </label>
                 </div>
 
-                {/* NAME */}
+                {/* =================================================
+                    FULL NAME
+                ================================================= */}
 
                 <div className="career-form-group">
                   <label htmlFor="career-name">
@@ -1838,13 +1957,19 @@ function Careers() {
                     type="text"
                     name="fullName"
                     placeholder="Enter your full name"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
+                    value={
+                      formData.fullName
+                    }
+                    onChange={
+                      handleInputChange
+                    }
                     required
                   />
                 </div>
 
-                {/* EMAIL + PHONE */}
+                {/* =================================================
+                    EMAIL + PHONE
+                ================================================= */}
 
                 <div className="career-form-row">
                   <div className="career-form-group">
@@ -1857,8 +1982,12 @@ function Careers() {
                       type="email"
                       name="email"
                       placeholder="yourname@email.com"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                      value={
+                        formData.email
+                      }
+                      onChange={
+                        handleInputChange
+                      }
                       required
                     />
                   </div>
@@ -1873,14 +2002,20 @@ function Careers() {
                       type="tel"
                       name="phone"
                       placeholder="+971 XX XXX XXXX"
-                      value={formData.phone}
-                      onChange={handleInputChange}
+                      value={
+                        formData.phone
+                      }
+                      onChange={
+                        handleInputChange
+                      }
                       required
                     />
                   </div>
                 </div>
 
-                {/* POSITION */}
+                {/* =================================================
+                    POSITION
+                ================================================= */}
 
                 <div className="career-form-group">
                   <label htmlFor="career-position">
@@ -1891,12 +2026,16 @@ function Careers() {
                     id="career-position"
                     type="text"
                     name="position"
-                    value={selectedJob}
+                    value={
+                      selectedJob
+                    }
                     readOnly
                   />
                 </div>
 
-                {/* EXPERIENCE */}
+                {/* =================================================
+                    EXPERIENCE
+                ================================================= */}
 
                 <div className="career-form-group">
                   <label htmlFor="career-experience">
@@ -1906,8 +2045,12 @@ function Careers() {
                   <select
                     id="career-experience"
                     name="experience"
-                    value={formData.experience}
-                    onChange={handleInputChange}
+                    value={
+                      formData.experience
+                    }
+                    onChange={
+                      handleInputChange
+                    }
                     required
                   >
                     <option value="">
@@ -1932,7 +2075,9 @@ function Careers() {
                   </select>
                 </div>
 
-                {/* CV */}
+                {/* =================================================
+                    CV
+                ================================================= */}
 
                 <div className="career-form-group">
                   <label htmlFor="career-cv">
@@ -1952,7 +2097,8 @@ function Careers() {
                     </span>
 
                     <small>
-                      PDF, DOC or DOCX • Max 5 MB
+                      PDF, DOC or DOCX • Max
+                      5 MB
                     </small>
                   </label>
 
@@ -1961,13 +2107,17 @@ function Careers() {
                     type="file"
                     name="cv"
                     accept=".pdf,.doc,.docx"
-                    onChange={handleFileChange}
+                    onChange={
+                      handleFileChange
+                    }
                     required
                     hidden
                   />
                 </div>
 
-                {/* MESSAGE */}
+                {/* =================================================
+                    MESSAGE
+                ================================================= */}
 
                 <div className="career-form-group">
                   <label htmlFor="career-message">
@@ -1979,35 +2129,51 @@ function Careers() {
                     name="message"
                     rows="5"
                     placeholder="Tell us a little about yourself..."
-                    value={formData.message}
-                    onChange={handleInputChange}
+                    value={
+                      formData.message
+                    }
+                    onChange={
+                      handleInputChange
+                    }
                     required
                   />
                 </div>
 
-                {/* ERROR */}
+                {/* =================================================
+                    ERROR
+                ================================================= */}
 
                 {formError && (
                   <div
                     style={{
-                      marginBottom: "15px",
-                      padding: "12px 14px",
-                      borderRadius: "10px",
-                      background: "#fff1f1",
-                      color: "#c0392b",
-                      fontSize: "13px",
+                      marginBottom:
+                        "15px",
+                      padding:
+                        "12px 14px",
+                      borderRadius:
+                        "10px",
+                      background:
+                        "#fff1f1",
+                      color:
+                        "#c0392b",
+                      fontSize:
+                        "13px",
                     }}
                   >
                     {formError}
                   </div>
                 )}
 
-                {/* SUBMIT */}
+                {/* =================================================
+                    SUBMIT
+                ================================================= */}
 
                 <button
                   type="submit"
                   className="career-submit-btn"
-                  disabled={submitting}
+                  disabled={
+                    submitting
+                  }
                 >
                   <span>
                     {submitting
